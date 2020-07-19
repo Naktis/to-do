@@ -15,12 +15,17 @@ namespace app.Models
             maxID++;
         }
 
-        public TodoItem Copy(TodoItem newData)  // Copy assignment without changing ID for editing
+        public TodoItem Copy(TodoItem newData)  // Copy assignment without changing ID
         {
             Name = newData.Name;
             Description = newData.Description;
             priority = newData.Priority;
             return this;
+        }
+
+        public static void decreaseMaxID()
+        {
+            maxID--;
         }
 
         private static int maxID = 0;

@@ -9,7 +9,6 @@ namespace app.Services
     public interface ITodoItemProvider
     {
         List<TodoItem> GetAll();
-
         TodoItem Get(int id);
         void Add(TodoItem todoItem);
         void Edit(int id, TodoItem todoItem);

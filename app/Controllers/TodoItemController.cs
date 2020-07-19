@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using app.Models;
@@ -9,35 +10,34 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace app.Controllers
 {
-    public class TodoItemsController : Controller
+    public class TodoItemController : Controller
     {
-
         private readonly ITodoItemProvider todoItemProvider;
 
-        public TodoItemsController(ITodoItemProvider todoItemProvider)
+        public TodoItemController(ITodoItemProvider todoItemProvider)
         {
             this.todoItemProvider = todoItemProvider;
         }
 
-        // GET: TodoItemsController
+        // GET: TodoItemController
         public ActionResult Index()
         {
             return View(todoItemProvider.GetAll());
         }
 
-        // GET: TodoItemsController/Details/5
+        // GET: TodoItemController/Details/5
         public ActionResult Details(int id)
         {
             return View(todoItemProvider.Get(id));
         }
 
-        // GET: TodoItemsController/Create
+        // GET: TodoItemController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TodoItemsController/Create
+        // POST: TodoItemController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(TodoItem todoItem)
@@ -54,13 +54,13 @@ namespace app.Controllers
             }
         }
 
-        // GET: TodoItemsController/Edit/5
+        // GET: TodoItemController/Edit/5
         public ActionResult Edit(int id)
         {
             return View(todoItemProvider.Get(id));
         }
 
-        // POST: TodoItemsController/Edit/5
+        // POST: TodoItemController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, TodoItem todoItem)
@@ -77,13 +77,13 @@ namespace app.Controllers
             }
         }
 
-        // GET: TodoItemsController/Delete/5
+        // GET: TodoItemController/Delete/5
         public ActionResult Delete(int id)
         {
             return View(todoItemProvider.Get(id));
         }
 
-        // POST: TodoItemsController/Delete/5
+        // POST: TodoItemController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, TodoItem todoItem)
