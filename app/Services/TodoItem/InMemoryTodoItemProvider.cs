@@ -22,13 +22,15 @@ namespace app.Models
 
         public void Delete(int id)
         {
+            // This action calls the constructor and increases MaxID value
             data.RemoveAt(getIndexByID(id));
-            TodoItem.decreaseMaxID();           // Stabilize numbering
+            TodoItem.decreaseMaxID(); // So we need to get it back
         }
 
         public void Edit(int id, TodoItem todoItem)
         {
             data[getIndexByID(id)].Copy(todoItem);
+            TodoItem.decreaseMaxID(); // Stabilize numbering again
         }
 
         public TodoItem Get(int id)

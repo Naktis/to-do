@@ -1,50 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using app.Models;
-using app.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using app.Services;
+using app.Models;
 
 namespace app.Controllers
 {
-    public class TodoItemController : Controller
-    {
-        private readonly ITodoItemProvider todoItemProvider;
+    public class CategoryController : Controller
+{
+        private readonly ICategoryProvider categoryProvider;
 
-        public TodoItemController(ITodoItemProvider todoItemProvider)
+        public CategoryController(ICategoryProvider categoryProvider)
         {
-            this.todoItemProvider = todoItemProvider;
+            this.categoryProvider = categoryProvider;
         }
 
-        // GET: TodoItem
+        // GET: Category
         public ActionResult Index()
         {
-            return View(todoItemProvider.GetAll());
+            return View(categoryProvider.GetAll());
         }
 
-        // GET: TodoItem/Details/5
+        // GET: Category/Details/5
         public ActionResult Details(int id)
         {
-            return View(todoItemProvider.Get(id));
+            return View(categoryProvider.Get(id));
         }
 
-        // GET: TodoItem/Create
+        // GET: Category/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TodoItem/Create
+        // POST: Category/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TodoItem todoItem)
+        public ActionResult Create(Category category)
         {
             try
             {
-                todoItemProvider.Add(todoItem);
+                categoryProvider.Add(category);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -54,20 +53,20 @@ namespace app.Controllers
             }
         }
 
-        // GET: TodoItem/Edit/5
+        // GET: Category/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(todoItemProvider.Get(id));
+            return View(categoryProvider.Get(id));
         }
 
-        // POST: TodoItem/Edit/5
+        // POST: Category/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, TodoItem todoItem)
+        public ActionResult Edit(int id, Category category)
         {
             try
             {
-                todoItemProvider.Edit(id, todoItem);
+                categoryProvider.Edit(id, category);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -77,20 +76,20 @@ namespace app.Controllers
             }
         }
 
-        // GET: TodoItem/Delete/5
+        // GET: Category/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(todoItemProvider.Get(id));
+            return View(categoryProvider.Get(id));
         }
 
-        // POST: TodoItem/Delete/5
+        // POST: Category/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, TodoItem todoItem)
+        public ActionResult Delete(int id, Category category)
         {
             try
             {
-                todoItemProvider.Delete(id);
+                categoryProvider.Delete(id);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -101,3 +100,4 @@ namespace app.Controllers
         }
     }
 }
+
