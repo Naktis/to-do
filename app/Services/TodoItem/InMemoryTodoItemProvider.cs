@@ -8,34 +8,35 @@ namespace app.Models
 {
     public class InMemoryTodoItemProvider : ITodoItemProvider
     {
+        public static int maxID = 2; // ID={0,1,2} are reserved for samples below
+
         private List<TodoItem> data = new List<TodoItem>()
         {
             // Sample data
-            new TodoItem(){Name="Exercise", Description="Catch a pigeon"},
-            new TodoItem(){Name="Make dinner",Description="Try roasted rocks", Priority=2},
-            new TodoItem(){Name="Midnight routine", Description="Do a backflip", Priority=1}
+            new TodoItem(){ID=0, Name="Exercise", Description="Catch a pigeon"},
+            new TodoItem(){ID=1, Name="Make dinner",Description="Try roasted rocks", Priority=2},
+            new TodoItem(){ID=2, Name="Midnight routine", Description="Do a backflip", Priority=1}
         };
         public void Add(TodoItem todoItem)
         {
+            maxID++;
+            todoItem.ID = maxID;
             data.Add(todoItem);
         }
 
         public void Delete(int id)
         {
-            // This action calls the constructor and increases MaxID value
-            data.RemoveAt(getIndexByID(id));
-            TodoItem.decreaseMaxID(); // So we need to get it back
+            data.Remove(GetItemByID(id));
         }
 
         public void Edit(int id, TodoItem todoItem)
         {
-            data[getIndexByID(id)].Copy(todoItem);
-            TodoItem.decreaseMaxID(); // Stabilize numbering again
+            GetItemByID(id).Copy(todoItem);
         }
 
         public TodoItem Get(int id)
         {
-            return data[getIndexByID(id)];
+            return GetItemByID(id);
         }
 
         public List<TodoItem> GetAll()
@@ -43,9 +44,9 @@ namespace app.Models
             return data;
         }
 
-        private int getIndexByID(int id)
+        private TodoItem GetItemByID(int id)
         {
-            return data.FindIndex(x => x.ID == id);
+            return data.Find(x => x.ID == id);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace app.Controllers
             }
             catch
             {
-                return View();
+                return View(todoItem);
             }
         }
 
@@ -73,7 +73,7 @@ namespace app.Controllers
             }
             catch
             {
-                return View();
+                return View(todoItem);
             }
         }
 
@@ -96,7 +96,7 @@ namespace app.Controllers
             }
             catch
             {
-                return View();
+                return View(todoItem);
             }
         }
     }

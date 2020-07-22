@@ -49,7 +49,7 @@ namespace app.Controllers
             }
             catch
             {
-                return View();
+                return View(category);
             }
         }
 
@@ -72,7 +72,7 @@ namespace app.Controllers
             }
             catch
             {
-                return View();
+                return View(category);
             }
         }
 
@@ -95,7 +95,7 @@ namespace app.Controllers
             }
             catch
             {
-                return View();
+                return View(category);
             }
         }
     }

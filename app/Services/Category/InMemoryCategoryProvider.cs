@@ -8,34 +8,36 @@ namespace app.Services
 {
     public class InMemoryCategoryProvider : ICategoryProvider
     {
+        public static int maxID = 2; // ID={0,1,2} are reserved for samples below
+
         private List<Category> data = new List<Category>()
         {
             // Sample data
-            new Category(){Name="Work"},
-            new Category(){Name="Personal"},
-            new Category(){Name="Learning"}
+            new Category(){ID=0, Name="Work"},
+            new Category(){ID=1, Name="Personal"},
+            new Category(){ID=2, Name="Learning"}
         };
+
         public void Add(Category category)
         {
+            maxID++;
+            category.ID = maxID;
             data.Add(category);
         }
 
         public void Delete(int id)
         {
-            // This action calls the constructor and increases MaxID value
-            data.RemoveAt(getIndexByID(id));
-            Category.decreaseMaxID(); // So we need to get it back
+            data.Remove(GetCategoryByID(id));
         }
 
         public void Edit(int id, Category category)
         {
-            data[getIndexByID(id)].Name = category.Name;
-            Category.decreaseMaxID(); // Stabilize numbering again
+            GetCategoryByID(id).Name = category.Name;
         }
 
         public Category Get(int id)
         {
-            return data[getIndexByID(id)];
+            return GetCategoryByID(id);
         }
 
         public List<Category> GetAll()
@@ -43,9 +45,9 @@ namespace app.Services
             return data;
         }
 
-        private int getIndexByID(int id)
+        private Category GetCategoryByID(int id)
         {
-            return data.FindIndex(x => x.ID == id);
+            return data.Find(x => x.ID == id);
         }
     }
 }
