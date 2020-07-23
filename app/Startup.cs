@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using app.Models;
+using app.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +26,9 @@ namespace app
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddSingleton<ITodoItemProvider, InMemoryTodoItemProvider>();
+            services.AddSingleton<ICategoryProvider, InMemoryCategoryProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
