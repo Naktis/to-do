@@ -27,8 +27,8 @@ namespace app
         {
             services.AddControllersWithViews();
 
-            services.AddSingleton<IDataProvider<TodoItem>, InMemoryTodoItemProvider>();
-            services.AddSingleton<IDataProvider<Category>, InMemoryCategoryProvider>();
+            services.AddSingleton<IDataProvider<TodoItem>>(new InFileDataProvider<TodoItem>("todoItems.json"));
+            services.AddSingleton<IDataProvider<Category>>(new InFileDataProvider<Category>("categories.json"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

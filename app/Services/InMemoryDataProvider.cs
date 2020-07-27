@@ -9,7 +9,7 @@ namespace app.Services
     {
         public static int maxID = -1;
 
-        private readonly List<TData> data = new List<TData>();
+        private readonly List<TData> data;
 
         public InMemoryDataProvider(List<TData> newData)
         {
@@ -18,19 +18,19 @@ namespace app.Services
 
         public InMemoryDataProvider() : this(new List<TData>()) { }
 
-        public void Add(TData item)
+        public virtual void Add(TData item)
         {
             maxID++;
             item.ID = maxID;
             data.Add(item);
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
             data.Remove(GetItemByID(id));
         }
 
-        public void Edit(int id, TData item)
+        public virtual void Edit(int id, TData item)
         {
             int oldID = item.ID;
             int index = data.FindIndex((x => x.ID == id));
