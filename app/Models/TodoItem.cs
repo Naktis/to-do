@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.Differencing;
+﻿using app.Services;
+using Microsoft.CodeAnalysis.Differencing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace app.Models
 {
-    public class TodoItem
+    public class TodoItem : IID
     {
         public int ID { get; set;  }
         public string Name { get; set; }
@@ -29,13 +30,6 @@ namespace app.Models
                 // If neither of the conditions are met,
                 // the value is kept default (3)
             }
-        }
-        public TodoItem Copy(TodoItem newData)  // Copy assignment without changing ID
-        {
-            Name = newData.Name;
-            Description = newData.Description;
-            priority = newData.Priority;
-            return this;
         }
     }
 }

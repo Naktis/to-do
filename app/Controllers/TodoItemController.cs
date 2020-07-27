@@ -12,9 +12,9 @@ namespace app.Controllers
 {
     public class TodoItemController : Controller
     {
-        private readonly ITodoItemProvider todoItemProvider;
+        private readonly IDataProvider<TodoItem> todoItemProvider;
 
-        public TodoItemController(ITodoItemProvider todoItemProvider)
+        public TodoItemController(IDataProvider<TodoItem> todoItemProvider)
         {
             this.todoItemProvider = todoItemProvider;
         }
