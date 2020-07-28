@@ -7,26 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using app.Data;
 using app.Models;
-using app.Services;
 
 namespace app.Controllers
 {
-    public class CategoryDBController : Controller
+    public class TodoItemDBController : Controller
     {
         private readonly Data.AppContext _context;
 
-        public CategoryDBController(Data.AppContext context)
+        public TodoItemDBController(Data.AppContext context)
         {
             _context = context;
         }
 
-        // GET: CategoryDB
+        // GET: TodoItemDB
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            return View(await _context.TodoItems.ToListAsync());
         }
 
-        // GET: CategoryDB/Details/5
+        // GET: TodoItemDB/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,39 +33,39 @@ namespace app.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var todoItem = await _context.TodoItems
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (category == null)
+            if (todoItem == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(todoItem);
         }
 
-        // GET: CategoryDB/Create
+        // GET: TodoItemDB/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: CategoryDB/Create
+        // POST: TodoItemDB/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name")] Category category)
+        public async Task<IActionResult> Create([Bind("ID,Name,Description,DeadLineDate,Priority")] TodoItem todoItem)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                _context.Add(todoItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(todoItem);
         }
 
-        // GET: CategoryDB/Edit/5
+        // GET: TodoItemDB/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +73,22 @@ namespace app.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var todoItem = await _context.TodoItems.FindAsync(id);
+            if (todoItem == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(todoItem);
         }
 
-        // POST: CategoryDB/Edit/5
+        // POST: TodoItemDB/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,DeadLineDate,Priority")] TodoItem todoItem)
         {
-            if (id != category.ID)
+            if (id != todoItem.ID)
             {
                 return NotFound();
             }
@@ -98,12 +97,12 @@ namespace app.Controllers
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(todoItem);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.ID))
+                    if (!TodoItemExists(todoItem.ID))
                     {
                         return NotFound();
                     }
@@ -114,10 +113,10 @@ namespace app.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(todoItem);
         }
 
-        // GET: CategoryDB/Delete/5
+        // GET: TodoItemDB/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,30 +124,30 @@ namespace app.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var todoItem = await _context.TodoItems
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (category == null)
+            if (todoItem == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(todoItem);
         }
 
-        // POST: CategoryDB/Delete/5
+        // POST: TodoItemDB/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
+            var todoItem = await _context.TodoItems.FindAsync(id);
+            _context.TodoItems.Remove(todoItem);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool TodoItemExists(int id)
         {
-            return _context.Categories.Any(e => e.ID == id);
+            return _context.TodoItems.Any(e => e.ID == id);
         }
     }
 }

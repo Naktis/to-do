@@ -7,13 +7,15 @@ using app.Models;
 
 namespace app.Data
 {
-    public class appContext : DbContext
+    public class AppContext : DbContext
     {
-        public appContext (DbContextOptions<appContext> options)
+        public AppContext (DbContextOptions<AppContext> options)
             : base(options)
         {
         }
 
         public DbSet<app.Models.Category> Categories { get; set; }
+
+        public DbSet<app.Models.TodoItem> TodoItems { get; set; }
     }
 }

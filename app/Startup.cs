@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using app.Data;
+using app.Services.Database;
 
 namespace app
 {
@@ -29,11 +30,10 @@ namespace app
         {
             services.AddControllersWithViews();
 
-            services.AddSingleton<IDataProvider<TodoItem>>(new InFileDataProvider<TodoItem>("todoItems.json"));
+            services.AddScoped<IDataProviderAsync<TodoItem>, InDbTodoItemProvider>();
+            services.AddScoped<IDataProviderAsync<Category>, InDbCategoryProvider>();
 
-            services.AddScoped<IDataProvider<Category>, InDbCategoryProvider>();
-
-            services.AddDbContext<appContext>(options =>
+            services.AddDbContext<Data.AppContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("appContext")));
         }
 

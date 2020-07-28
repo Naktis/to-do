@@ -22,7 +22,7 @@ namespace app
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<appContext>();
+                    var context = services.GetRequiredService<Data.AppContext>();
                     DBInitializer.Initialize(context);
                 }
                 catch (Exception ex)

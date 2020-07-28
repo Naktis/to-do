@@ -6,6 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200727164738_CategoryTableAdded.cs" />
+    <Compile Remove="Migrations\20200727164738_CategoryTableAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200728101517_TodoItemsTableAdded.cs" />
+    <Compile Remove="Migrations\20200728101517_TodoItemsTableAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200728103627_CategoriesTableAdded.cs" />
+    <Compile Remove="Migrations\20200728103627_CategoriesTableAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200728103807_TodoItemsTableAdded.cs" />
+    <Compile Remove="Migrations\20200728103807_TodoItemsTableAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200728115225_tables-added.cs" />
+    <Compile Remove="Migrations\20200728115225_tables-added.Designer.cs" />
+    <Compile Remove="Migrations\20200728115621_tablesAdded.cs" />
+    <Compile Remove="Migrations\20200728115621_tablesAdded.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6">
