@@ -11,7 +11,6 @@ namespace app.Services
 {
     public class InDbCategoryProvider : IDataProviderAsync<Category>
     {
-        public static int maxID = -1;
         private readonly Data.AppContext context;
         public InDbCategoryProvider(Data.AppContext context)
         {
@@ -20,9 +19,7 @@ namespace app.Services
 
         public async void Add(Category item)
         {
-            maxID++;
-            item.ID = maxID;
-            context.Categories.Add(item);
+            context.Add(item);
             await context.SaveChangesAsync();
         }
 

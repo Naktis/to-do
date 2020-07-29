@@ -18,6 +18,12 @@
     <Compile Remove="Migrations\20200728115225_tables-added.Designer.cs" />
     <Compile Remove="Migrations\20200728115621_tablesAdded.cs" />
     <Compile Remove="Migrations\20200728115621_tablesAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200728115846_AddTables.cs" />
+    <Compile Remove="Migrations\20200728115846_AddTables.Designer.cs" />
+    <Compile Remove="Migrations\20200729110701_TablesAdded.cs" />
+    <Compile Remove="Migrations\20200729110701_TablesAdded.Designer.cs" />
+    <Compile Remove="Migrations\20200729111725_TablesAdded.cs" />
+    <Compile Remove="Migrations\20200729111725_TablesAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

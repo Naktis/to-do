@@ -10,8 +10,8 @@ using app.Data;
 namespace app.Migrations
 {
     [DbContext(typeof(Data.AppContext))]
-    [Migration("20200728115846_AddTables")]
-    partial class AddTables
+    [Migration("20200729113506_TablesAdded")]
+    partial class TablesAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,27 +43,40 @@ namespace app.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CategoryID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeadLineDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string?>("Description")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
-                    b.Property<Enum>("Status")
-                        .HasColumnType("enum");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("CategoryID");
+
                     b.ToTable("TodoItems");
+                });
+
+            modelBuilder.Entity("app.Models.TodoItem", b =>
+                {
+                    b.HasOne("app.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID");
                 });
 #pragma warning restore 612, 618
         }

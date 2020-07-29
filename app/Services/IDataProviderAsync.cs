@@ -12,6 +12,5 @@ namespace app.Services
         void Add(TData item);
         void Edit(int id, TData item);
         void Delete(int id);
-        public bool Exists(int id);
     }
 }

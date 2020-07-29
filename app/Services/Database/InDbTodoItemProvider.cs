@@ -10,7 +10,6 @@ namespace app.Services.Database
 {
     public class InDbTodoItemProvider : IDataProviderAsync<TodoItem>
     {
-        public static int maxID = -1;
         private readonly Data.AppContext context;
         public InDbTodoItemProvider(Data.AppContext context)
         {
@@ -19,9 +18,7 @@ namespace app.Services.Database
 
         public async void Add(TodoItem item)
         {
-            maxID++;
-            item.ID = maxID;
-            context.TodoItems.Add(item);
+            context.Add(item);
             await context.SaveChangesAsync();
         }
 
@@ -46,11 +43,6 @@ namespace app.Services.Database
         public async Task<List<TodoItem>> GetAll()
         {
             return await context.TodoItems.ToListAsync();
-        }
-
-        public bool Exists(int id)
-        {
-            return context.TodoItems.Any(e => e.ID == id);
         }
     }
 }

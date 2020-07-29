@@ -41,6 +41,9 @@ namespace app.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CategoryID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -51,17 +54,27 @@ namespace app.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
-                    b.Property<Enum>("Status")
-                        .HasColumnType("status");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("CategoryID");
+
                     b.ToTable("TodoItems");
+                });
+
+            modelBuilder.Entity("app.Models.TodoItem", b =>
+                {
+                    b.HasOne("app.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID");
                 });
 #pragma warning restore 612, 618
         }

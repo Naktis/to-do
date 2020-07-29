@@ -30,11 +30,11 @@ namespace app
         {
             services.AddControllersWithViews();
 
-            services.AddScoped<IDataProviderAsync<TodoItem>, InDbTodoItemProvider>();
-            services.AddScoped<IDataProviderAsync<Category>, InDbCategoryProvider>();
+            services.AddTransient<IDataProviderAsync<TodoItem>, InDbTodoItemProvider>();
+            services.AddTransient<IDataProviderAsync<Category>, InDbCategoryProvider>();
 
             services.AddDbContext<Data.AppContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("appContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("AppContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

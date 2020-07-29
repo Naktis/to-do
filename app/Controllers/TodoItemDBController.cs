@@ -22,7 +22,8 @@ namespace app.Controllers
         // GET: TodoItemDB
         public async Task<IActionResult> Index()
         {
-            return View(await _context.TodoItems.ToListAsync());
+            var appContext = _context.TodoItems.Include(t => t.Category);
+            return View(await appContext.ToListAsync());
         }
 
         // GET: TodoItemDB/Details/5
@@ -34,6 +35,7 @@ namespace app.Controllers
             }
 
             var todoItem = await _context.TodoItems
+                .Include(t => t.Category)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (todoItem == null)
             {
@@ -46,6 +48,7 @@ namespace app.Controllers
         // GET: TodoItemDB/Create
         public IActionResult Create()
         {
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "ID", "Name");
             return View();
         }
 
@@ -54,14 +57,16 @@ namespace app.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Description,DeadLineDate,Priority")] TodoItem todoItem)
+        public async Task<IActionResult> Create([Bind("ID,Name,Description,DeadLineDate,CreationDate,Priority,Status,CategoryID")] TodoItem todoItem)
         {
             if (ModelState.IsValid)
             {
+                todoItem.CreationDate = DateTime.UtcNow;
                 _context.Add(todoItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "ID", "Name", todoItem.CategoryID);
             return View(todoItem);
         }
 
@@ -78,6 +83,7 @@ namespace app.Controllers
             {
                 return NotFound();
             }
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "ID", "Name", todoItem.CategoryID);
             return View(todoItem);
         }
 
@@ -86,7 +92,7 @@ namespace app.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,DeadLineDate,Priority")] TodoItem todoItem)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,DeadLineDate,CreationDate,Priority,Status,CategoryID")] TodoItem todoItem)
         {
             if (id != todoItem.ID)
             {
@@ -113,6 +119,7 @@ namespace app.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "ID", "Name", todoItem.CategoryID);
             return View(todoItem);
         }
 
@@ -125,6 +132,7 @@ namespace app.Controllers
             }
 
             var todoItem = await _context.TodoItems
+                .Include(t => t.Category)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (todoItem == null)
             {
