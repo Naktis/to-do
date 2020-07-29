@@ -11,30 +11,27 @@ namespace app.Models
 {
     public class TodoItem : IID
     {
-        public TodoItem()
-        {
-             CreationDate = DateTime.Now;
-        }
         public int ID { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         #nullable enable
         public string? Description { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime? DeadLineDate { get; set; }
         #nullable disable
 
-        public DateTime CreationDate { get; }
+        public DateTime CreationDate { get; set; }
 
         [Range(1,5)]
+        [Required]
         public int Priority { get; set; } = 3;
 
-        enum Status
-        {
-            Backlog, //default value since it is the first enumerator
-            Wip,
-            Done,
-            Archived
-        }
+        public TodoItemStatus Status { get; set; }
+
+        public int? CategoryID { get; set; }
+        public Category Category { get; set; }
     }
 }
