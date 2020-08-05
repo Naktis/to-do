@@ -11,9 +11,9 @@ namespace app.Controllers
 {
     public class CategoryController : Controller
 {
-        private readonly ICategoryProvider categoryProvider;
+        private readonly IDataProvider<Category> categoryProvider;
 
-        public CategoryController(ICategoryProvider categoryProvider)
+        public CategoryController(IDataProvider<Category> categoryProvider)
         {
             this.categoryProvider = categoryProvider;
         }

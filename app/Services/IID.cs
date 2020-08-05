@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using app.Services;
 
-namespace app.Models
+namespace app.Services
 {
-    public class Category : IID
-    { 
+    public interface IID
+    {
         public int ID { get; set; }
-        public string Name { get; set; }
     }
 }

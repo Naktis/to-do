@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using app.Data;
+using app.Services.Database;
 
 namespace app
 {
@@ -27,8 +30,11 @@ namespace app
         {
             services.AddControllersWithViews();
 
-            services.AddSingleton<ITodoItemProvider, InMemoryTodoItemProvider>();
-            services.AddSingleton<ICategoryProvider, InMemoryCategoryProvider>();
+            services.AddTransient<IDataProviderAsync<TodoItem>, InDbTodoItemProvider>();
+            services.AddTransient<IDataProviderAsync<Category>, InDbCategoryProvider>();
+
+            services.AddDbContext<Data.AppContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("AppContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
