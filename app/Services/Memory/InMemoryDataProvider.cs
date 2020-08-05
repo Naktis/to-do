@@ -30,19 +30,10 @@ namespace app.Services
             data.Remove(GetItemByID(id));
         }
 
-        public virtual void Edit(int id, TData item)
+        public virtual void Edit(TData item)
         {
-            int oldID = item.ID;
-            int index = data.FindIndex((x => x.ID == id));
-            if (index != -1)
-            {
-                data[index] = item;
-                item.ID = oldID;
-            }
-            else
-            {
-                throw new IDNotFoundException(id);
-            } 
+            data.Remove(GetItemByID(item.ID));
+            data.Add(item);
         }
 
         public TData Get(int id)

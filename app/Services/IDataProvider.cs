@@ -10,7 +10,7 @@ namespace app.Services
         List<TData> GetAll();
         TData Get(int id);
         void Add(TData item);
-        void Edit(int id, TData item);
+        void Edit(TData item);
         void Delete(int id);
     }
 }

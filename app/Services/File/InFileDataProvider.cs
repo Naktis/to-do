@@ -24,9 +24,9 @@ namespace app.Services
             SaveData(GetAll(), fileName);
         }
 
-        public override void Edit(int id, TData item)
+        public override void Edit(TData item)
         {
-            base.Edit(id, item);
+            base.Edit(item);
             SaveData(GetAll(), fileName);
         }
 

@@ -67,7 +67,7 @@ namespace app.Controllers
         {
             try
             {
-                todoItemProvider.Edit(id, todoItem);
+                todoItemProvider.Edit(todoItem);
 
                 return RedirectToAction(nameof(Index));
             }
