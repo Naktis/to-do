@@ -33,5 +33,7 @@ namespace app.Models
 
         public int? CategoryID { get; set; }
         public Category Category { get; set; }
+
+        public IList<TodoItemTag> TodoItemTags { get; set; }
     }
 }
