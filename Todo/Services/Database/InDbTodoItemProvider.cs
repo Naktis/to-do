@@ -1,12 +1,12 @@
-﻿using app.Data;
-using app.Models;
+﻿using Todo.Data;
+using Todo.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace app.Services.Database
+namespace Todo.Services.Database
 {
     public class InDbTodoItemProvider : IDataProviderAsync<TodoItem>
     {

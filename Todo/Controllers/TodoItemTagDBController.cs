@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using app.Data;
-using app.Models;
+using Todo.Data;
+using Todo.Models;
 
-namespace app.Controllers
+namespace Todo.Controllers
 {
     public class TodoItemTagDBController : Controller
     {
@@ -22,8 +22,8 @@ namespace app.Controllers
         // GET: TodoItemTagDB
         public async Task<IActionResult> Index()
         {
-            var appContext = _context.TodoItemTag.Include(t => t.Tag).Include(t => t.TodoItem);
-            return View(await appContext.ToListAsync());
+            var todoContext = _context.TodoItemTag.Include(t => t.Tag).Include(t => t.TodoItem);
+            return View(await todoContext.ToListAsync());
         }
 
         // GET: TodoItemTagDB/Details/5

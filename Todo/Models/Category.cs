@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using app.Services;
+using Todo.Services;
 
-namespace app.Models
+namespace Todo.Models
 {
     public class Category : IID
     { 

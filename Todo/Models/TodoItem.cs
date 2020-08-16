@@ -1,4 +1,4 @@
-﻿using app.Services;
+﻿using Todo.Services;
 using Microsoft.CodeAnalysis.Differencing;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace app.Models
+namespace Todo.Models
 {
     public class TodoItem : IID
     {

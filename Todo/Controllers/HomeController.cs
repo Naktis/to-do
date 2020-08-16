@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using app.Models;
+using Todo.Models;
 
-namespace app.Controllers
+namespace Todo.Controllers
 {
     public class HomeController : Controller
     {

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using app.Data;
-using app.Models;
-using app.Services;
+using Todo.Data;
+using Todo.Models;
+using Todo.Services;
 
-namespace app.Controllers
+namespace Todo.Controllers
 {
     public class CategoryDBController : Controller
     {

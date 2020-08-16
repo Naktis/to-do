@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace app.Migrations
+namespace Todo.Migrations
 {
     public partial class TablesAdded : Migration
     {

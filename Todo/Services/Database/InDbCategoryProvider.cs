@@ -1,5 +1,5 @@
-﻿using app.Data;
-using app.Models;
+﻿using Todo.Data;
+using Todo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace app.Services
+namespace Todo.Services
 {
     public class InDbCategoryProvider : IDataProviderAsync<Category>
     {

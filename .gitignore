@@ -352,3 +352,5 @@ MigrationBackup/
 # Data files
 app/categories.json
 app/todoItems.json
+Todo/categories.json
+Todo/todoItems.json

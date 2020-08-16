@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using app.Models;
-using app.Services;
+using Todo.Models;
+using Todo.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace app.Controllers
+namespace Todo.Controllers
 {
     public class TodoItemController : Controller
     {

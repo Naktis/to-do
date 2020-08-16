@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using app.Data;
+using Todo.Data;
 
-namespace app.Migrations
+namespace Todo.Migrations
 {
     [DbContext(typeof(Data.AppContext))]
     partial class AppContextModelSnapshot : ModelSnapshot
@@ -19,7 +19,7 @@ namespace app.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("app.Models.Category", b =>
+            modelBuilder.Entity("Todo.Models.Category", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace app.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("app.Models.Tag", b =>
+            modelBuilder.Entity("Todo.Models.Tag", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace app.Migrations
                     b.ToTable("Tag");
                 });
 
-            modelBuilder.Entity("app.Models.TodoItem", b =>
+            modelBuilder.Entity("Todo.Models.TodoItem", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -85,7 +85,7 @@ namespace app.Migrations
                     b.ToTable("TodoItems");
                 });
 
-            modelBuilder.Entity("app.Models.TodoItemTag", b =>
+            modelBuilder.Entity("Todo.Models.TodoItemTag", b =>
                 {
                     b.Property<int>("TodoItemID")
                         .HasColumnType("int");
@@ -100,22 +100,22 @@ namespace app.Migrations
                     b.ToTable("TodoItemTag");
                 });
 
-            modelBuilder.Entity("app.Models.TodoItem", b =>
+            modelBuilder.Entity("Todo.Models.TodoItem", b =>
                 {
-                    b.HasOne("app.Models.Category", "Category")
+                    b.HasOne("Todo.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryID");
                 });
 
-            modelBuilder.Entity("app.Models.TodoItemTag", b =>
+            modelBuilder.Entity("Todo.Models.TodoItemTag", b =>
                 {
-                    b.HasOne("app.Models.Tag", "Tag")
+                    b.HasOne("Todo.Models.Tag", "Tag")
                         .WithMany("TodoItemTags")
                         .HasForeignKey("TagID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("app.Models.TodoItem", "TodoItem")
+                    b.HasOne("Todo.Models.TodoItem", "TodoItem")
                         .WithMany("TodoItemTags")
                         .HasForeignKey("TodoItemID")
                         .OnDelete(DeleteBehavior.Cascade)
