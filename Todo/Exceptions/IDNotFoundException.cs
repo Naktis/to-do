@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Todo.Services
+namespace Todo.Web.Services
 {
     public class IDNotFoundException : Exception
     {

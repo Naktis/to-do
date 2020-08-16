@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Todo.Services;
-using Todo.Models;
+using Todo.Web.Services;
+using Todo.Web.Models;
 
-namespace Todo.Controllers
+namespace Todo.Web.Controllers
 {
     public class CategoryController : Controller
 {

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Todo.Data;
-using Todo.Models;
+using Todo.Web.Data;
+using Todo.Web.Models;
 
-namespace Todo.Controllers
+namespace Todo.Web.Controllers
 {
     public class TagDBController : Controller
     {
