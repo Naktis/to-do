@@ -66,7 +66,7 @@ namespace app.Controllers
         {
             try
             {
-                categoryProvider.Edit(id, category);
+                categoryProvider.Edit(category);
 
                 return RedirectToAction(nameof(Index));
             }
