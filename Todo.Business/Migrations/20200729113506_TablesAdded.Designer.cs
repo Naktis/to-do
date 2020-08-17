@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Todo.Web.Data;
+using Todo.Business.Data;
 
-namespace Todo.Web.Migrations
+namespace Todo.Business.Migrations
 {
     [DbContext(typeof(Data.AppContext))]
     [Migration("20200729113506_TablesAdded")]
@@ -21,7 +21,7 @@ namespace Todo.Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Todo.Web.Models.Category", b =>
+            modelBuilder.Entity("Todo.Business.Models.CategoryDao", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -36,7 +36,7 @@ namespace Todo.Web.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Todo.Web.Models.TodoItem", b =>
+            modelBuilder.Entity("Todo.Business.Models.TodoItemDao", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -72,9 +72,9 @@ namespace Todo.Web.Migrations
                     b.ToTable("TodoItems");
                 });
 
-            modelBuilder.Entity("Todo.Web.Models.TodoItem", b =>
+            modelBuilder.Entity("Todo.Business.Models.TodoItemDao", b =>
                 {
-                    b.HasOne("Todo.Web.Models.Category", "Category")
+                    b.HasOne("Todo.Business.Models.CategoryDao", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryID");
                 });

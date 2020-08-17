@@ -1,4 +1,4 @@
-﻿@model Todo.Web.Models.TodoItem
+﻿@model Todo.Business.Models.TodoItemDao
 
 @{
     ViewData["Title"] = "Edit";
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" asp-items="@Html.GetEnumSelectList<Todo.Web.Models.TodoItemStatus>()" class="form-control"></select>
+                <select asp-for="Status" asp-items="@Html.GetEnumSelectList<Todo.Business.Models.TodoItemStatusDao>()" class="form-control"></select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">

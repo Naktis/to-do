@@ -4,16 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Todo.Web.Services;
-using Todo.Web.Models;
+using Todo.Business.Services;
+using Todo.Business.Models;
 
 namespace Todo.Web.Controllers
 {
     public class CategoryController : Controller
 {
-        private readonly IDataProvider<Category> categoryProvider;
+        private readonly IDataProvider<CategoryDao> categoryProvider;
 
-        public CategoryController(IDataProvider<Category> categoryProvider)
+        public CategoryController(IDataProvider<CategoryDao> categoryProvider)
         {
             this.categoryProvider = categoryProvider;
         }
@@ -39,7 +39,7 @@ namespace Todo.Web.Controllers
         // POST: Category/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Category category)
+        public ActionResult Create(CategoryDao category)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Todo.Web.Controllers
         // POST: Category/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Category category)
+        public ActionResult Edit(int id, CategoryDao category)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace Todo.Web.Controllers
         // POST: Category/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Category category)
+        public ActionResult Delete(int id, CategoryDao category)
         {
             try
             {

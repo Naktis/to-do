@@ -1,17 +1,17 @@
-﻿using Todo.Web.Models;
+﻿using Todo.Business.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Todo.Web.Services
+namespace Todo.Business.Services
 {
-    public class InMemoryCategoryProvider : InMemoryDataProvider<Category>
+    public class InMemoryCategoryProvider : InMemoryDataProvider<CategoryDao>
     {
         public InMemoryCategoryProvider() : base()
         {
-            Add(new Category() { Name = "Work" });
-            Add(new Category() { Name = "Personal" });
+            Add(new CategoryDao() { Name = "Work" });
+            Add(new CategoryDao() { Name = "Personal" });
         }
     }
 }

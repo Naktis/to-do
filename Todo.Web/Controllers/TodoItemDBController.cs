@@ -5,16 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Todo.Web.Data;
-using Todo.Web.Models;
+using Todo.Business.Models;
 
 namespace Todo.Web.Controllers
 {
     public class TodoItemDBController : Controller
     {
-        private readonly Data.AppContext _context;
+        private readonly Business.Data.AppContext _context;
 
-        public TodoItemDBController(Data.AppContext context)
+        public TodoItemDBController(Business.Data.AppContext context)
         {
             _context = context;
         }
@@ -57,7 +56,7 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Description,DeadLineDate,CreationDate,Priority,Status,CategoryID")] TodoItem todoItem)
+        public async Task<IActionResult> Create([Bind("ID,Name,Description,DeadLineDate,CreationDate,Priority,Status,CategoryID")] TodoItemDao todoItem)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +91,7 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,DeadLineDate,CreationDate,Priority,Status,CategoryID")] TodoItem todoItem)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,DeadLineDate,CreationDate,Priority,Status,CategoryID")] TodoItemDao todoItem)
         {
             if (id != todoItem.ID)
             {

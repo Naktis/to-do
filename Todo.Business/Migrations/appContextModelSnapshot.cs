@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Todo.Web.Data;
+using Todo.Business.Data;
 
-namespace Todo.Web.Migrations
+namespace Todo.Business.Migrations
 {
     [DbContext(typeof(Data.AppContext))]
     partial class AppContextModelSnapshot : ModelSnapshot
@@ -19,7 +19,7 @@ namespace Todo.Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Todo.Web.Models.Category", b =>
+            modelBuilder.Entity("Todo.Business.Models.CategoryDao", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace Todo.Web.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Todo.Web.Models.Tag", b =>
+            modelBuilder.Entity("Todo.Business.Models.Tag", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace Todo.Web.Migrations
                     b.ToTable("Tag");
                 });
 
-            modelBuilder.Entity("Todo.Web.Models.TodoItem", b =>
+            modelBuilder.Entity("Todo.Business.Models.TodoItemDao", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -85,7 +85,7 @@ namespace Todo.Web.Migrations
                     b.ToTable("TodoItems");
                 });
 
-            modelBuilder.Entity("Todo.Web.Models.TodoItemTag", b =>
+            modelBuilder.Entity("Todo.Business.Models.TodoItemTagDao", b =>
                 {
                     b.Property<int>("TodoItemID")
                         .HasColumnType("int");
@@ -100,22 +100,22 @@ namespace Todo.Web.Migrations
                     b.ToTable("TodoItemTag");
                 });
 
-            modelBuilder.Entity("Todo.Web.Models.TodoItem", b =>
+            modelBuilder.Entity("Todo.Business.Models.TodoItemDao", b =>
                 {
-                    b.HasOne("Todo.Web.Models.Category", "Category")
+                    b.HasOne("Todo.Business.Models.CategoryDao", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryID");
                 });
 
-            modelBuilder.Entity("Todo.Web.Models.TodoItemTag", b =>
+            modelBuilder.Entity("Todo.Business.Models.TodoItemTagDao", b =>
                 {
-                    b.HasOne("Todo.Web.Models.Tag", "Tag")
+                    b.HasOne("Todo.Business.Models.Tag", "Tag")
                         .WithMany("TodoItemTags")
                         .HasForeignKey("TagID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Todo.Web.Models.TodoItem", "TodoItem")
+                    b.HasOne("Todo.Business.Models.TodoItemDao", "TodoItem")
                         .WithMany("TodoItemTags")
                         .HasForeignKey("TodoItemID")
                         .OnDelete(DeleteBehavior.Cascade)

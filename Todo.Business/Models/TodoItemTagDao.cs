@@ -1,17 +1,17 @@
-﻿using Todo.Web.Services;
+﻿using Todo.Business.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Todo.Web.Models
+namespace Todo.Business.Models
 {
-    public class TodoItemTag
+    public class TodoItemTagDao
     {
         public int TodoItemID { get; set; }
-        public TodoItem TodoItem { get; set; }
+        public TodoItemDao TodoItem { get; set; }
 
         public int TagID { get; set; }
-        public Tag Tag { get; set; }
+        public TagDao Tag { get; set; }
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Todo.Web.Models
+namespace Todo.Business.Models
 {
-    public enum TodoItemStatus
+    public enum TodoItemStatusDao
     {
         Backlog, //default value since it is the first enumerator
         Wip,

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Todo.Web.Services;
+using Todo.Business.Services;
 
-namespace Todo.Web.Models
+namespace Todo.Business.Models
 {
-    public class Category : IID
+    public class CategoryDao : IID
     { 
         public int ID { get; set; }
         public string Name { get; set; }

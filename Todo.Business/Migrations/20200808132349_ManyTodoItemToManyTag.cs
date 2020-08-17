@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Todo.Web.Migrations
+namespace Todo.Business.Migrations
 {
     public partial class ManyTodoItemToManyTag : Migration
     {

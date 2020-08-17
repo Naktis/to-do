@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Todo.Web.Models;
+using Todo.Business.Models;
 
-namespace Todo.Web.Data
+namespace Todo.Business.Data
 {
     public class AppContext : DbContext
     {
@@ -16,25 +16,25 @@ namespace Todo.Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TodoItemTag>().HasKey(sc => new { sc.TodoItemID, sc.TagID });
+            modelBuilder.Entity<TodoItemTagDao>().HasKey(sc => new { sc.TodoItemID, sc.TagID });
 
-            modelBuilder.Entity<TodoItemTag>()
-                .HasOne<TodoItem>(ss => ss.TodoItem)
+            modelBuilder.Entity<TodoItemTagDao>()
+                .HasOne<TodoItemDao>(ss => ss.TodoItem)
                 .WithMany(s => s.TodoItemTags)
                 .HasForeignKey(ss => ss.TodoItemID);
 
-            modelBuilder.Entity<TodoItemTag>()
-                .HasOne<Tag>(ss => ss.Tag)
+            modelBuilder.Entity<TodoItemTagDao>()
+                .HasOne<TagDao>(ss => ss.Tag)
                 .WithMany(s => s.TodoItemTags)
                 .HasForeignKey(ss => ss.TagID);
         }
 
-        public DbSet<Todo.Web.Models.Category> Categories { get; set; }
+        public DbSet<Todo.Business.Models.CategoryDao> Categories { get; set; }
 
-        public DbSet<Todo.Web.Models.TodoItem> TodoItems { get; set; }
+        public DbSet<Todo.Business.Models.TodoItemDao> TodoItems { get; set; }
 
-        public DbSet<Todo.Web.Models.Tag> Tags { get; set; }
+        public DbSet<Todo.Business.Models.TagDao> Tags { get; set; }
 
-        public DbSet<Todo.Web.Models.TodoItemTag> TodoItemTag { get; set; }
+        public DbSet<Todo.Business.Models.TodoItemTagDao> TodoItemTag { get; set; }
     }
 }

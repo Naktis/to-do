@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Todo.Web.Data;
-using Todo.Web.Models;
-using Todo.Web.Services;
+using Todo.Business.Data;
+using Todo.Business.Models;
+using Todo.Business.Services;
 
 namespace Todo.Web.Controllers
 {
     public class CategoryDBController : Controller
     {
-        private readonly Data.AppContext _context;
+        private readonly Business.Data.AppContext _context;
 
-        public CategoryDBController(Data.AppContext context)
+        public CategoryDBController(Business.Data.AppContext context)
         {
             _context = context;
         }
@@ -55,7 +55,7 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name")] Category category)
+        public async Task<IActionResult> Create([Bind("ID,Name")] CategoryDao category)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] CategoryDao category)
         {
             if (id != category.ID)
             {

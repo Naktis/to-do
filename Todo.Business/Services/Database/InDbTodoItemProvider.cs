@@ -1,14 +1,14 @@
-﻿using Todo.Web.Data;
-using Todo.Web.Models;
+﻿using Todo.Business.Data;
+using Todo.Business.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Todo.Web.Services.Database
+namespace Todo.Business.Services.Database
 {
-    public class InDbTodoItemProvider : IDataProviderAsync<TodoItem>
+    public class InDbTodoItemProvider : IDataProviderAsync<TodoItemDao>
     {
         private readonly Data.AppContext context;
         public InDbTodoItemProvider(Data.AppContext context)
@@ -16,7 +16,7 @@ namespace Todo.Web.Services.Database
             this.context = context;
         }
 
-        public async void Add(TodoItem item)
+        public async void Add(TodoItemDao item)
         {
             context.Add(item);
             await context.SaveChangesAsync();
@@ -29,18 +29,18 @@ namespace Todo.Web.Services.Database
             await context.SaveChangesAsync();
         }
 
-        public async void Edit(int id, TodoItem changes)
+        public async void Edit(int id, TodoItemDao changes)
         {
             context.Update(changes);
             await context.SaveChangesAsync();
         }
 
-        public async Task<TodoItem> Get(int id)
+        public async Task<TodoItemDao> Get(int id)
         {
             return await context.TodoItems.FindAsync(id);
         }
 
-        public async Task<List<TodoItem>> GetAll()
+        public async Task<List<TodoItemDao>> GetAll()
         {
             return await context.TodoItems.ToListAsync();
         }

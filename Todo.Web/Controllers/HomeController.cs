@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Todo.Web.Models;
+using Todo.Business.Models;
 
 namespace Todo.Web.Controllers
 {

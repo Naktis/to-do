@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Todo.Web.Data;
-using Todo.Web.Models;
+using Todo.Business.Data;
+using Todo.Business.Models;
 
 namespace Todo.Web.Controllers
 {
     public class TodoItemTagDBController : Controller
     {
-        private readonly Data.AppContext _context;
+        private readonly Business.Data.AppContext _context;
 
-        public TodoItemTagDBController(Data.AppContext context)
+        public TodoItemTagDBController(Business.Data.AppContext context)
         {
             _context = context;
         }
@@ -59,7 +59,7 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TodoItemID,TagID")] TodoItemTag todoItemTag)
+        public async Task<IActionResult> Create([Bind("TodoItemID,TagID")] TodoItemTagDao todoItemTag)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? oldTodoItemID, int? oldTagID, [Bind("TodoItemID,TagID")] TodoItemTag todoItemTag)
+        public async Task<IActionResult> Edit(int? oldTodoItemID, int? oldTagID, [Bind("TodoItemID,TagID")] TodoItemTagDao todoItemTag)
         {
             if (todoItemTag == null)
             {
@@ -158,7 +158,7 @@ namespace Todo.Web.Controllers
         // POST: TodoItemTagAdmin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed([Bind("TodoItemID,TagID")] TodoItemTag studentTag)
+        public async Task<IActionResult> DeleteConfirmed([Bind("TodoItemID,TagID")] TodoItemTagDao studentTag)
         {
             _context.TodoItemTag.Remove(studentTag);
             await _context.SaveChangesAsync();

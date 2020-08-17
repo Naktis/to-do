@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Todo.Web.Models;
-using Todo.Web.Services;
+using Todo.Business.Models;
+using Todo.Business.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,8 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Todo.Web.Data;
-using Todo.Web.Services.Database;
+using Todo.Business.Data;
+using Todo.Business.Services.Database;
 
 namespace Todo
 {
@@ -30,10 +30,10 @@ namespace Todo
         {
             services.AddControllersWithViews();
 
-            services.AddTransient<IDataProviderAsync<TodoItem>, InDbTodoItemProvider>();
-            services.AddTransient<IDataProviderAsync<Category>, InDbCategoryProvider>();
+            services.AddTransient<IDataProviderAsync<TodoItemDao>, InDbTodoItemProvider>();
+            services.AddTransient<IDataProviderAsync<CategoryDao>, InDbCategoryProvider>();
 
-            services.AddDbContext<Web.Data.AppContext>(options =>
+            services.AddDbContext<Business.Data.AppContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("AppContext")));
         }
 

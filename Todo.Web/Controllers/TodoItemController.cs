@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Todo.Web.Models;
-using Todo.Web.Services;
+using Todo.Business.Models;
+using Todo.Business.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,9 +12,9 @@ namespace Todo.Web.Controllers
 {
     public class TodoItemController : Controller
     {
-        private readonly IDataProvider<TodoItem> todoItemProvider;
+        private readonly IDataProvider<TodoItemDao> todoItemProvider;
 
-        public TodoItemController(IDataProvider<TodoItem> todoItemProvider)
+        public TodoItemController(IDataProvider<TodoItemDao> todoItemProvider)
         {
             this.todoItemProvider = todoItemProvider;
         }
@@ -40,7 +40,7 @@ namespace Todo.Web.Controllers
         // POST: TodoItem/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TodoItem todoItem)
+        public ActionResult Create(TodoItemDao todoItem)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Todo.Web.Controllers
         // POST: TodoItem/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, TodoItem todoItem)
+        public ActionResult Edit(int id, TodoItemDao todoItem)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace Todo.Web.Controllers
         // POST: TodoItem/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, TodoItem todoItem)
+        public ActionResult Delete(int id, TodoItemDao todoItem)
         {
             try
             {

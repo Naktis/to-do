@@ -5,16 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Todo.Web.Data;
-using Todo.Web.Models;
+using Todo.Business.Models;
 
 namespace Todo.Web.Controllers
 {
     public class TagDBController : Controller
     {
-        private readonly Data.AppContext _context;
+        private readonly Business.Data.AppContext _context;
 
-        public TagDBController(Data.AppContext context)
+        public TagDBController(Business.Data.AppContext context)
         {
             _context = context;
         }
@@ -54,7 +53,7 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name")] Tag tag)
+        public async Task<IActionResult> Create([Bind("ID,Name")] TagDao tag)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +85,7 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] Tag tag)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] TagDao tag)
         {
             if (id != tag.ID)
             {

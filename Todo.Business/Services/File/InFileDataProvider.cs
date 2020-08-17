@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace Todo.Web.Services
+namespace Todo.Business.Services
 {
     public class InFileDataProvider<TData> : InMemoryDataProvider<TData> where TData : IID
     {

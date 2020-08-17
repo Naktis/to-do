@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Todo.Web.Services
+namespace Todo.Business.Services
 {
     public interface IDataProvider<TData>
     {

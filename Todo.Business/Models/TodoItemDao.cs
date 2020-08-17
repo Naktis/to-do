@@ -1,4 +1,4 @@
-﻿using Todo.Web.Services;
+﻿using Todo.Business.Services;
 using Microsoft.CodeAnalysis.Differencing;
 using System;
 using System.Collections.Generic;
@@ -7,9 +7,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Todo.Web.Models
+namespace Todo.Business.Models
 {
-    public class TodoItem : IID
+    public class TodoItemDao : IID
     {
         public int ID { get; set; }
 
@@ -29,11 +29,11 @@ namespace Todo.Web.Models
         [Required]
         public int Priority { get; set; } = 3;
 
-        public TodoItemStatus Status { get; set; }
+        public TodoItemStatusDao Status { get; set; }
 
         public int? CategoryID { get; set; }
-        public Category Category { get; set; }
+        public CategoryDao Category { get; set; }
 
-        public IList<TodoItemTag> TodoItemTags { get; set; }
+        public IList<TodoItemTagDao> TodoItemTags { get; set; }
     }
 }

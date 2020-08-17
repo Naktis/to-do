@@ -1,14 +1,14 @@
-﻿using Todo.Web.Data;
-using Todo.Web.Models;
+﻿using Todo.Business.Data;
+using Todo.Business.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Todo.Web.Services
+namespace Todo.Business.Services
 {
-    public class InDbCategoryProvider : IDataProviderAsync<Category>
+    public class InDbCategoryProvider : IDataProviderAsync<CategoryDao>
     {
         private readonly Data.AppContext context;
         public InDbCategoryProvider(Data.AppContext context)
@@ -16,7 +16,7 @@ namespace Todo.Web.Services
             this.context = context;
         }
 
-        public async void Add(Category item)
+        public async void Add(CategoryDao item)
         {
             context.Add(item);
             await context.SaveChangesAsync();
@@ -29,18 +29,18 @@ namespace Todo.Web.Services
             await context.SaveChangesAsync();
         }
 
-        public async void Edit(int id, Category changes)
+        public async void Edit(int id, CategoryDao changes)
         {
             context.Update(changes);
             await context.SaveChangesAsync();
         }
 
-        public async Task<Category> Get(int id)
+        public async Task<CategoryDao> Get(int id)
         {
             return await context.Categories.FindAsync(id);
         }
 
-        public async Task<List<Category>> GetAll()
+        public async Task<List<CategoryDao>> GetAll()
         {
             return await context.Categories.ToListAsync();
         }
