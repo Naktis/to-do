@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Todo.Business.Models;
+using Todo.Data.Models;
 
-namespace Todo.Business.Data
+namespace Todo.Data.Context
 {
     public class AppContext : DbContext
     {
@@ -29,12 +29,12 @@ namespace Todo.Business.Data
                 .HasForeignKey(ss => ss.TagID);
         }
 
-        public DbSet<Todo.Business.Models.CategoryDao> Categories { get; set; }
+        public DbSet<CategoryDao> Categories { get; set; }
 
-        public DbSet<Todo.Business.Models.TodoItemDao> TodoItems { get; set; }
+        public DbSet<TodoItemDao> TodoItems { get; set; }
 
-        public DbSet<Todo.Business.Models.TagDao> Tags { get; set; }
+        public DbSet<TagDao> Tags { get; set; }
 
-        public DbSet<Todo.Business.Models.TodoItemTagDao> TodoItemTag { get; set; }
+        public DbSet<TodoItemTagDao> TodoItemTag { get; set; }
     }
 }

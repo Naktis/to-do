@@ -6,17 +6,17 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Todo.Business.Models;
+using Todo.Data.Models;
 using Todo.Web.ViewModels;
 
 namespace Todo.Web.Controllers
 {
     public class TodoItemDBController : Controller
     {
-        private readonly Business.Data.AppContext _context;
+        private readonly Data.Context.AppContext _context;
         private readonly IMapper mapper;
 
-        public TodoItemDBController(Business.Data.AppContext context, IMapper mapper)
+        public TodoItemDBController(Data.Context.AppContext context, IMapper mapper)
         {
             _context = context;
             this.mapper = mapper;

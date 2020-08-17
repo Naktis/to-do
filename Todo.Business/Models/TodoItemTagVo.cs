@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Todo.Data.Models
 {
-    public class TodoItemTagDao
+    public class TodoItemTagVo
     {
         public int TodoItemID { get; set; }
         public TodoItemDao TodoItem { get; set; }

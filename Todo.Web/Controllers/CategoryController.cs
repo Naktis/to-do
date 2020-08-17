@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Todo.Business.Services;
-using Todo.Business.Models;
+using Todo.Data.Models;
 
 namespace Todo.Web.Controllers
 {

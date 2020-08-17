@@ -1,5 +1,5 @@
-﻿using Todo.Business.Data;
-using Todo.Business.Models;
+﻿using Todo.Data.Context;
+using Todo.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,8 +10,8 @@ namespace Todo.Business.Services
 {
     public class InDbCategoryProvider : IDataProviderAsync<CategoryDao>
     {
-        private readonly Data.AppContext context;
-        public InDbCategoryProvider(Data.AppContext context)
+        private readonly Data.Context.AppContext context;
+        public InDbCategoryProvider(Data.Context.AppContext context)
         {
             this.context = context;
         }

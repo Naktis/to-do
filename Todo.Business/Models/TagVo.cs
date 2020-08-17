@@ -5,8 +5,12 @@ using System.Threading.Tasks;
 
 namespace Todo.Data.Models
 {
-    public interface IID
+    public class TagVo : IID
     {
         public int ID { get; set; }
+
+        public string Name { get; set; }
+
+        public IList<TodoItemTagDao> TodoItemTags { get; set; }
     }
 }

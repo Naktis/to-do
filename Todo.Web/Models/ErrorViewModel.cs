@@ -1,6 +1,6 @@
 using System;
 
-namespace Todo.Business.Models
+namespace Todo.Data.Models
 {
     public class ErrorViewModel
     {

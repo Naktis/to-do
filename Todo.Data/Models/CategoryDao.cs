@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Todo.Business.Services;
 
-namespace Todo.Business.Models
+namespace Todo.Data.Models
 {
     public class CategoryDao : IID
     { 

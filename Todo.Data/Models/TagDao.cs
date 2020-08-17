@@ -1,10 +1,9 @@
-﻿using Todo.Business.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Todo.Business.Models
+namespace Todo.Data.Models
 {
     public class TagDao : IID
     {

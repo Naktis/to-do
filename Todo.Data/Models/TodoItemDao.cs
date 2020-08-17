@@ -1,13 +1,13 @@
-﻿using Todo.Business.Services;
-using Microsoft.CodeAnalysis.Differencing;
+﻿using Microsoft.CodeAnalysis.Differencing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Todo.Commons;
 
-namespace Todo.Business.Models
+namespace Todo.Data.Models
 {
     public class TodoItemDao : IID
     {
@@ -29,7 +29,7 @@ namespace Todo.Business.Models
         [Required]
         public int Priority { get; set; } = 3;
 
-        public TodoItemStatusDao Status { get; set; }
+        public TodoItemStatus Status { get; set; }
 
         public int? CategoryID { get; set; }
         public CategoryDao Category { get; set; }

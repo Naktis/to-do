@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace Todo.Data.Models
 {
-    public interface IID
-    {
+    public class CategoryVo : IID
+    { 
         public int ID { get; set; }
+        public string Name { get; set; }
     }
 }

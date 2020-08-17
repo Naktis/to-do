@@ -5,22 +5,23 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Todo.Data.Models;
 using Todo.Commons;
 
-namespace Todo.Web.ViewModels
+namespace Todo.Data.Models
 {
-    public class TodoItemViewModel
+    public class TodoItemVo : IID
     {
         public int ID { get; set; }
 
         [Required]
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        #nullable enable
+        public string? Description { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? DeadLineDate { get; set; }
+        #nullable disable
 
         public DateTime CreationDate { get; set; }
 

@@ -1,4 +1,4 @@
-﻿using Todo.Business.Models;
+﻿using Todo.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
