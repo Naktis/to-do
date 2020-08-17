@@ -2,26 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Todo.Business.Models;
+using Todo.Web.ViewModels;
 
 namespace Todo.Web.Controllers
 {
     public class TagDBController : Controller
     {
         private readonly Business.Data.AppContext _context;
+        private readonly IMapper mapper;
 
-        public TagDBController(Business.Data.AppContext context)
+        public TagDBController(Business.Data.AppContext context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: TagDB
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tags.ToListAsync());
+            var tags = await _context.Tags.ToListAsync();
+            return View(mapper.Map<IEnumerable<TagViewModel>>(tags));
         }
 
         // GET: TagDB/Details/5
@@ -39,7 +44,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            return View(tag);
+            return View(mapper.Map<TagViewModel>(tag));
         }
 
         // GET: TagDB/Create
@@ -61,7 +66,7 @@ namespace Todo.Web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tag);
+            return View(mapper.Map<TagViewModel>(tag));
         }
 
         // GET: TagDB/Edit/5
@@ -77,7 +82,7 @@ namespace Todo.Web.Controllers
             {
                 return NotFound();
             }
-            return View(tag);
+            return View(mapper.Map<TagViewModel>(tag));
         }
 
         // POST: TagDB/Edit/5
@@ -112,7 +117,7 @@ namespace Todo.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(tag);
+            return View(mapper.Map<TagViewModel>(tag));
         }
 
         // GET: TagDB/Delete/5
@@ -130,7 +135,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            return View(tag);
+            return View(mapper.Map<TagViewModel>(tag));
         }
 
         // POST: TagDB/Delete/5

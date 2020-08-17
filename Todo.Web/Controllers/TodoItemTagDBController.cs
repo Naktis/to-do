@@ -2,28 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Todo.Business.Data;
 using Todo.Business.Models;
+using Todo.Web.ViewModels;
 
 namespace Todo.Web.Controllers
 {
     public class TodoItemTagDBController : Controller
     {
         private readonly Business.Data.AppContext _context;
+        private readonly IMapper mapper;
 
-        public TodoItemTagDBController(Business.Data.AppContext context)
+        public TodoItemTagDBController(Business.Data.AppContext context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: TodoItemTagDB
         public async Task<IActionResult> Index()
         {
             var todoContext = _context.TodoItemTag.Include(t => t.Tag).Include(t => t.TodoItem);
-            return View(await todoContext.ToListAsync());
+            var itemTags = await todoContext.ToListAsync();
+            return View(mapper.Map<IEnumerable<TodoItemTagViewModel>>(itemTags));
         }
 
         // GET: TodoItemTagDB/Details/5
@@ -43,7 +48,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            return View(todoItemTag);
+            return View(mapper.Map<TodoItemTagViewModel>(todoItemTag));
         }
 
         // GET: TodoItemTagDB/Create
@@ -69,7 +74,7 @@ namespace Todo.Web.Controllers
             }
             ViewData["TagID"] = new SelectList(_context.Tags, "ID", "ID", todoItemTag.TagID);
             ViewData["TodoItemID"] = new SelectList(_context.TodoItems, "ID", "Name", todoItemTag.TodoItemID);
-            return View(todoItemTag);
+            return View(mapper.Map<TodoItemTagViewModel>(todoItemTag));
         }
 
         // GET: TodoItemTagDB/Edit/5
@@ -89,7 +94,7 @@ namespace Todo.Web.Controllers
             ViewData["TagID"] = new SelectList(_context.Tags, "ID", "Name", todoItemTag.TagID);
             ViewData["OldTodoItemID"] = todoItemID;
             ViewData["OldTagID"] = tagID;
-            return View(todoItemTag);
+            return View(mapper.Map<TodoItemTagViewModel>(todoItemTag));
         }
 
         // POST: TodoItemTagAdmin/Edit/5
@@ -132,7 +137,7 @@ namespace Todo.Web.Controllers
             }
             ViewData["TodoItemID"] = new SelectList(_context.TodoItems, "ID", "Name", todoItemTag.TodoItemID);
             ViewData["TagID"] = new SelectList(_context.Tags, "ID", "Name", todoItemTag.TagID);
-            return View(todoItemTag);
+            return View(mapper.Map<TodoItemTagViewModel>(todoItemTag));
         }
 
         // GET: TodoItemTagDB/Delete/5
@@ -143,24 +148,24 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            var studentTag = await _context.TodoItemTag
+            var todoItemTag = await _context.TodoItemTag
                 .Include(s => s.TodoItem)
                 .Include(s => s.Tag)
                 .FirstOrDefaultAsync(m => m.TodoItemID == todoItemID && m.TagID == tagID);
-            if (studentTag == null)
+            if (todoItemTag == null)
             {
                 return NotFound();
             }
 
-            return View(studentTag);
+            return View(mapper.Map<TodoItemTagViewModel>(todoItemTag));
         }
 
         // POST: TodoItemTagAdmin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed([Bind("TodoItemID,TagID")] TodoItemTagDao studentTag)
+        public async Task<IActionResult> DeleteConfirmed([Bind("TodoItemID,TagID")] TodoItemTagDao todoItemTag)
         {
-            _context.TodoItemTag.Remove(studentTag);
+            _context.TodoItemTag.Remove(todoItemTag);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

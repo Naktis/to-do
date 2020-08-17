@@ -2,28 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Todo.Business.Data;
 using Todo.Business.Models;
 using Todo.Business.Services;
+using Todo.Web.ViewModels;
 
 namespace Todo.Web.Controllers
 {
     public class CategoryDBController : Controller
     {
         private readonly Business.Data.AppContext _context;
+        private readonly IMapper mapper;
 
-        public CategoryDBController(Business.Data.AppContext context)
+        public CategoryDBController(Business.Data.AppContext context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: CategoryDB
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            var categories = await _context.Categories.ToListAsync();
+            return View(mapper.Map<IEnumerable<CategoryViewModel>>(categories));
         }
 
         // GET: CategoryDB/Details/5
@@ -40,8 +45,7 @@ namespace Todo.Web.Controllers
             {
                 return NotFound();
             }
-
-            return View(category);
+            return View(mapper.Map<CategoryViewModel>(category));
         }
 
         // GET: CategoryDB/Create
@@ -63,7 +67,7 @@ namespace Todo.Web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(mapper.Map<CategoryViewModel>(category));
         }
 
         // GET: CategoryDB/Edit/5
@@ -79,7 +83,7 @@ namespace Todo.Web.Controllers
             {
                 return NotFound();
             }
-            return View(category);
+            return View(mapper.Map<CategoryViewModel>(category));
         }
 
         // POST: CategoryDB/Edit/5
@@ -114,7 +118,7 @@ namespace Todo.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(mapper.Map<CategoryViewModel>(category));
         }
 
         // GET: CategoryDB/Delete/5
@@ -132,7 +136,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            return View(category);
+            return View(mapper.Map<CategoryViewModel>(category));
         }
 
         // POST: CategoryDB/Delete/5

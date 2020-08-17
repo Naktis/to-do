@@ -2,27 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Todo.Business.Models;
+using Todo.Web.ViewModels;
 
 namespace Todo.Web.Controllers
 {
     public class TodoItemDBController : Controller
     {
         private readonly Business.Data.AppContext _context;
+        private readonly IMapper mapper;
 
-        public TodoItemDBController(Business.Data.AppContext context)
+        public TodoItemDBController(Business.Data.AppContext context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: TodoItemDB
         public async Task<IActionResult> Index()
         {
             var todoContext = _context.TodoItems.Include(t => t.Category);
-            return View(await todoContext.ToListAsync());
+            var todoItems = await todoContext.ToListAsync();
+            return View(mapper.Map<IEnumerable<TodoItemViewModel>>(todoItems));
         }
 
         // GET: TodoItemDB/Details/5
@@ -41,7 +46,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            return View(todoItem);
+            return View(mapper.Map<TodoItemViewModel>(todoItem));
         }
 
         // GET: TodoItemDB/Create
@@ -66,7 +71,7 @@ namespace Todo.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryID"] = new SelectList(_context.Categories, "ID", "Name", todoItem.CategoryID);
-            return View(todoItem);
+            return View(mapper.Map<TodoItemViewModel>(todoItem));
         }
 
         // GET: TodoItemDB/Edit/5
@@ -83,7 +88,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
             ViewData["CategoryID"] = new SelectList(_context.Categories, "ID", "Name", todoItem.CategoryID);
-            return View(todoItem);
+            return View(mapper.Map<TodoItemViewModel>(todoItem));
         }
 
         // POST: TodoItemDB/Edit/5
@@ -119,7 +124,7 @@ namespace Todo.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryID"] = new SelectList(_context.Categories, "ID", "Name", todoItem.CategoryID);
-            return View(todoItem);
+            return View(mapper.Map<TodoItemViewModel>(todoItem));
         }
 
         // GET: TodoItemDB/Delete/5
@@ -138,7 +143,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            return View(todoItem);
+            return View(mapper.Map<TodoItemViewModel>(todoItem));
         }
 
         // POST: TodoItemDB/Delete/5
