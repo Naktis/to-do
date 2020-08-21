@@ -29,11 +29,22 @@ namespace Todo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var configuration = new MapperConfiguration(cfg =>
+                cfg.AddMaps(new[] {
+                                "Todo.Web",
+                                "Todo.Business"
+                })
+            );
+            IMapper mapper = configuration.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
 
-            services.AddTransient<IDataProviderAsync<TodoItemDao>, InDbTodoItemProvider>();
-            services.AddTransient<IDataProviderAsync<CategoryDao>, InDbCategoryProvider>();
+            services.AddTransient<IDataProviderAsync<TodoItemVo>, InDbTodoItemProvider>();
+            services.AddTransient<IDataProviderAsync<CategoryVo>, InDbCategoryProvider>();
+            services.AddTransient<IDataProviderAsync<TagVo>, InDbTagProvider>();
+            services.AddTransient<ITodoItemTagProviderAsync, InDbTodoItemTagProvider>();
 
             services.AddDbContext<Data.Context.AppContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("AppContext")));

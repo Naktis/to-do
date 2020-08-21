@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Todo.Business.Services
 {
-    public class InMemoryCategoryProvider : InMemoryDataProvider<CategoryDao>
+    public class InMemoryCategoryProvider : InMemoryDataProvider<CategoryVo>
     {
         public InMemoryCategoryProvider() : base()
         {
-            Add(new CategoryDao() { Name = "Work" });
-            Add(new CategoryDao() { Name = "Personal" });
+            Add(new CategoryVo() { Name = "Work" });
+            Add(new CategoryVo() { Name = "Personal" });
         }
     }
 }

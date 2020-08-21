@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Todo.Data.Models;
-using Todo.Web.ViewModels;
 
-namespace Todo.Web.Profiles
+namespace Todo.Business.Profiles
 {
-    public class TagViewModelProfile : Profile
+    public class TodoItemVoProfile : Profile
     {
-        public TagViewModelProfile()
+        public TodoItemVoProfile()
         {
-            CreateMap<TagVo, TagViewModel>()
+            CreateMap<TodoItemVo, TodoItemDao>()
                 .ReverseMap();
         }
     }

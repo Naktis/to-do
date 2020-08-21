@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Todo.Business.Services
 {
-    public class InMemoryTodoItemProvider : InMemoryDataProvider<TodoItemDao>
+    public class InMemoryTodoItemProvider : InMemoryDataProvider<TodoItemVo>
 {
     public InMemoryTodoItemProvider() : base()
     {
-        Add(new TodoItemDao() { ID = 0, Name = "Exercise", Description = "Catch a pigeon" });
-        Add(new TodoItemDao() { ID = 1, Name = "Make dinner", Description = "Try roasted rocks", Priority = 2 });
+        Add(new TodoItemVo() { ID = 0, Name = "Exercise", Description = "Catch a pigeon" });
+        Add(new TodoItemVo() { ID = 1, Name = "Make dinner", Description = "Try roasted rocks", Priority = 2 });
     }
 }
 }

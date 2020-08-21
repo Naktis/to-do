@@ -15,19 +15,19 @@ namespace Todo.Web.Controllers
 {
     public class CategoryDBController : Controller
     {
-        private readonly Data.Context.AppContext _context;
+        private readonly IDataProviderAsync<CategoryVo> provider;
         private readonly IMapper mapper;
 
-        public CategoryDBController(Data.Context.AppContext context, IMapper mapper)
+        public CategoryDBController(IMapper mapper, IDataProviderAsync<CategoryVo> provider)
         {
-            _context = context;
+            this.provider = provider;
             this.mapper = mapper;
         }
 
         // GET: CategoryDB
         public async Task<IActionResult> Index()
         {
-            var categories = await _context.Categories.ToListAsync();
+            var categories = await provider.GetAll();
             return View(mapper.Map<IEnumerable<CategoryViewModel>>(categories));
         }
 
@@ -39,8 +39,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var category = await provider.Get((int)id);
             if (category == null)
             {
                 return NotFound();
@@ -59,15 +58,15 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name")] CategoryDao category)
+        public async Task<IActionResult> Create([Bind("ID,Name")] CategoryViewModel category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                var categoryVo = mapper.Map<CategoryVo>(category);
+                await provider.Add(categoryVo);
                 return RedirectToAction(nameof(Index));
             }
-            return View(mapper.Map<CategoryViewModel>(category));
+            return View(category);
         }
 
         // GET: CategoryDB/Edit/5
@@ -78,7 +77,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
+            var category = await provider.Get((int)id);
             if (category == null)
             {
                 return NotFound();
@@ -91,7 +90,7 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] CategoryDao category)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] CategoryViewModel category)
         {
             if (id != category.ID)
             {
@@ -102,12 +101,12 @@ namespace Todo.Web.Controllers
             {
                 try
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
+                    var categoryVo = mapper.Map<CategoryVo>(category);
+                    await provider.Edit(categoryVo);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.ID))
+                    if (!provider.Exists(category.ID))
                     {
                         return NotFound();
                     }
@@ -118,7 +117,7 @@ namespace Todo.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(mapper.Map<CategoryViewModel>(category));
+            return View(category);
         }
 
         // GET: CategoryDB/Delete/5
@@ -129,8 +128,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var category = await provider.Get((int)id);
             if (category == null)
             {
                 return NotFound();
@@ -144,15 +142,8 @@ namespace Todo.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            await provider.Delete(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool CategoryExists(int id)
-        {
-            return _context.Categories.Any(e => e.ID == id);
         }
     }
 }

@@ -1,48 +1,52 @@
-﻿using Todo.Data.Context;
-using Todo.Data.Models;
+﻿using Todo.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Todo.Business.Services
 {
-    public class InDbCategoryProvider : IDataProviderAsync<CategoryDao>
+    public class InDbCategoryProvider : IDataProviderAsync<CategoryVo>
     {
         private readonly Data.Context.AppContext context;
-        public InDbCategoryProvider(Data.Context.AppContext context)
+        private readonly IMapper mapper;
+        public InDbCategoryProvider(Data.Context.AppContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
-        public async void Add(CategoryDao item)
+        public async Task Add(CategoryVo item)
         {
-            context.Add(item);
+            context.Add(entity: mapper.Map<CategoryDao>(item));
             await context.SaveChangesAsync();
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             var category = await context.Categories.FindAsync(id);
             context.Categories.Remove(category);
             await context.SaveChangesAsync();
         }
 
-        public async void Edit(int id, CategoryDao changes)
+        public async Task Edit(CategoryVo changes)
         {
-            context.Update(changes);
+            context.Update(entity: mapper.Map<CategoryDao>(changes));
             await context.SaveChangesAsync();
         }
 
-        public async Task<CategoryDao> Get(int id)
+        public async Task<CategoryVo> Get(int id)
         {
-            return await context.Categories.FindAsync(id);
+            var category = await context.Categories.FindAsync(id);
+            return mapper.Map<CategoryVo>(category);
         }
 
-        public async Task<List<CategoryDao>> GetAll()
+        public async Task<List<CategoryVo>> GetAll()
         {
-            return await context.Categories.ToListAsync();
+            var categories = await context.Categories.ToListAsync();
+            return mapper.Map<List<CategoryVo>>(categories);
         }
 
         public bool Exists(int id)

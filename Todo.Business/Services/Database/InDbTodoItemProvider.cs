@@ -5,44 +5,56 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Todo.Business.Services.Database
 {
-    public class InDbTodoItemProvider : IDataProviderAsync<TodoItemDao>
+    public class InDbTodoItemProvider : IDataProviderAsync<TodoItemVo>
     {
         private readonly Data.Context.AppContext context;
-        public InDbTodoItemProvider(Data.Context.AppContext context)
+        private readonly IMapper mapper;
+        public InDbTodoItemProvider(Data.Context.AppContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
-        public async void Add(TodoItemDao item)
+        public async Task Add(TodoItemVo item)
         {
-            context.Add(item);
+            context.Add(entity: mapper.Map<TodoItemDao>(item));
             await context.SaveChangesAsync();
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             var todoItem = await context.TodoItems.FindAsync(id);
             context.TodoItems.Remove(todoItem);
             await context.SaveChangesAsync();
         }
 
-        public async void Edit(int id, TodoItemDao changes)
+        public async Task Edit(TodoItemVo changes)
         {
-            context.Update(changes);
+            context.Update(entity: mapper.Map<TodoItemDao>(changes));
             await context.SaveChangesAsync();
         }
 
-        public async Task<TodoItemDao> Get(int id)
+        public async Task<TodoItemVo> Get(int id)
         {
-            return await context.TodoItems.FindAsync(id);
+            var todoItem = await context.TodoItems
+                .Include(t => t.Category)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            return mapper.Map<TodoItemVo>(todoItem);
         }
 
-        public async Task<List<TodoItemDao>> GetAll()
+        public async Task<List<TodoItemVo>> GetAll()
         {
-            return await context.TodoItems.ToListAsync();
+            var contextWithCategories = context.TodoItems.Include(t => t.Category);
+            var todoItems = await contextWithCategories.ToListAsync();
+            return mapper.Map<List<TodoItemVo>>(todoItems);
+        }
+        public bool Exists(int id)
+        {
+            return context.TodoItems.Any(e => e.ID == id);
         }
     }
 }

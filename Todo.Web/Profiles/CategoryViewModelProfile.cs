@@ -12,7 +12,7 @@ namespace Todo.Web.Profiles
     {
         public CategoryViewModelProfile()
         {
-            CreateMap<CategoryDao, CategoryViewModel>()
+            CreateMap<CategoryVo, CategoryViewModel>()
                 .ReverseMap();
         }
     }

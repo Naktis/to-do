@@ -12,7 +12,7 @@ namespace Todo.Web.Profiles
     {
         public TodoItemViewModelProfile()
         {
-            CreateMap<TodoItemDao, TodoItemViewModel>()
+            CreateMap<TodoItemVo, TodoItemViewModel>()
                 .ReverseMap();
         }
     }

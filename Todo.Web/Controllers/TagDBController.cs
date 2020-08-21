@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Todo.Business.Services;
 using Todo.Data.Models;
 using Todo.Web.ViewModels;
 
@@ -13,19 +14,19 @@ namespace Todo.Web.Controllers
 {
     public class TagDBController : Controller
     {
-        private readonly Data.Context.AppContext _context;
+        private readonly IDataProviderAsync<TagVo> provider;
         private readonly IMapper mapper;
 
-        public TagDBController(Data.Context.AppContext context, IMapper mapper)
+        public TagDBController(IMapper mapper, IDataProviderAsync<TagVo> provider)
         {
-            _context = context;
+            this.provider = provider;
             this.mapper = mapper;
         }
 
         // GET: TagDB
         public async Task<IActionResult> Index()
         {
-            var tags = await _context.Tags.ToListAsync();
+            var tags = await provider.GetAll();
             return View(mapper.Map<IEnumerable<TagViewModel>>(tags));
         }
 
@@ -37,13 +38,11 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            var tag = await _context.Tags
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var tag = await provider.Get((int)id);
             if (tag == null)
             {
                 return NotFound();
             }
-
             return View(mapper.Map<TagViewModel>(tag));
         }
 
@@ -58,15 +57,15 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name")] TagDao tag)
+        public async Task<IActionResult> Create([Bind("ID,Name")] TagViewModel tag)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tag);
-                await _context.SaveChangesAsync();
+                var tagVo = mapper.Map<TagVo>(tag);
+                await provider.Add(tagVo);
                 return RedirectToAction(nameof(Index));
             }
-            return View(mapper.Map<TagViewModel>(tag));
+            return View(tag);
         }
 
         // GET: TagDB/Edit/5
@@ -77,7 +76,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            var tag = await _context.Tags.FindAsync(id);
+            var tag = await provider.Get((int)id);
             if (tag == null)
             {
                 return NotFound();
@@ -90,7 +89,7 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] TagDao tag)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] TagViewModel tag)
         {
             if (id != tag.ID)
             {
@@ -101,12 +100,12 @@ namespace Todo.Web.Controllers
             {
                 try
                 {
-                    _context.Update(tag);
-                    await _context.SaveChangesAsync();
+                    var tagVo = mapper.Map<TagVo>(tag);
+                    await provider.Edit(tagVo);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TagExists(tag.ID))
+                    if (!provider.Exists(tag.ID))
                     {
                         return NotFound();
                     }
@@ -117,7 +116,7 @@ namespace Todo.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(mapper.Map<TagViewModel>(tag));
+            return View(tag);
         }
 
         // GET: TagDB/Delete/5
@@ -128,8 +127,7 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            var tag = await _context.Tags
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var tag = await provider.Get((int)id);
             if (tag == null)
             {
                 return NotFound();
@@ -143,15 +141,8 @@ namespace Todo.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tag = await _context.Tags.FindAsync(id);
-            _context.Tags.Remove(tag);
-            await _context.SaveChangesAsync();
+            await provider.Delete(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool TagExists(int id)
-        {
-            return _context.Tags.Any(e => e.ID == id);
         }
     }
 }

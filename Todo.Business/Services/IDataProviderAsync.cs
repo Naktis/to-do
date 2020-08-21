@@ -9,8 +9,9 @@ namespace Todo.Business.Services
     {
         Task<List<TData>> GetAll();
         Task<TData> Get(int id);
-        void Add(TData item);
-        void Edit(int id, TData item);
-        void Delete(int id);
+        Task Add(TData item);
+        Task Edit(TData item);
+        Task Delete(int id);
+        bool Exists(int id);
     }
 }

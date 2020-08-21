@@ -8,25 +8,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Todo.Data.Models;
 using Todo.Web.ViewModels;
+using Todo.Business.Services;
 
 namespace Todo.Web.Controllers
 {
     public class TodoItemDBController : Controller
     {
-        private readonly Data.Context.AppContext _context;
         private readonly IMapper mapper;
+        private readonly IDataProviderAsync<TodoItemVo> provider;
+        private readonly Data.Context.AppContext context;
 
-        public TodoItemDBController(Data.Context.AppContext context, IMapper mapper)
+        public TodoItemDBController(Data.Context.AppContext context, IMapper mapper, IDataProviderAsync<TodoItemVo> provider)
         {
-            _context = context;
+            this.provider = provider;
             this.mapper = mapper;
+            this.context = context;
         }
+
 
         // GET: TodoItemDB
         public async Task<IActionResult> Index()
         {
-            var todoContext = _context.TodoItems.Include(t => t.Category);
-            var todoItems = await todoContext.ToListAsync();
+            var todoItems = await provider.GetAll();
             return View(mapper.Map<IEnumerable<TodoItemViewModel>>(todoItems));
         }
 
@@ -38,21 +41,19 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            var todoItem = await _context.TodoItems
-                .Include(t => t.Category)
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var todoItem = await provider.Get((int)id);
+
             if (todoItem == null)
             {
                 return NotFound();
             }
-
             return View(mapper.Map<TodoItemViewModel>(todoItem));
         }
 
         // GET: TodoItemDB/Create
         public IActionResult Create()
         {
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "ID", "Name");
+            ViewData["CategoryID"] = new SelectList(context.Categories, "ID", "Name");
             return View();
         }
 
@@ -61,17 +62,17 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Description,DeadLineDate,CreationDate,Priority,Status,CategoryID")] TodoItemDao todoItem)
+        public async Task<IActionResult> Create([Bind("ID,Name,Description,DeadLineDate,CreationDate,Priority,Status,CategoryID")] TodoItemViewModel todoItem)
         {
             if (ModelState.IsValid)
             {
-                todoItem.CreationDate = DateTime.UtcNow;
-                _context.Add(todoItem);
-                await _context.SaveChangesAsync();
+                var todoItemVo = mapper.Map<TodoItemVo>(todoItem);
+                todoItemVo.CreationDate = DateTime.UtcNow;
+                await provider.Add(todoItemVo);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "ID", "Name", todoItem.CategoryID);
-            return View(mapper.Map<TodoItemViewModel>(todoItem));
+            ViewData["CategoryID"] = new SelectList(context.Categories, "ID", "Name", todoItem.CategoryID);
+            return View(todoItem);
         }
 
         // GET: TodoItemDB/Edit/5
@@ -82,13 +83,13 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            var todoItem = await _context.TodoItems.FindAsync(id);
-            if (todoItem == null)
+            var todoItemVo = await provider.Get((int)id);
+            if (todoItemVo == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "ID", "Name", todoItem.CategoryID);
-            return View(mapper.Map<TodoItemViewModel>(todoItem));
+            ViewData["CategoryID"] = new SelectList(context.Categories, "ID", "Name", todoItemVo.CategoryID);
+            return View(mapper.Map<TodoItemViewModel>(todoItemVo));
         }
 
         // POST: TodoItemDB/Edit/5
@@ -96,7 +97,7 @@ namespace Todo.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,DeadLineDate,CreationDate,Priority,Status,CategoryID")] TodoItemDao todoItem)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,DeadLineDate,CreationDate,Priority,Status,CategoryID")] TodoItemViewModel todoItem)
         {
             if (id != todoItem.ID)
             {
@@ -107,12 +108,12 @@ namespace Todo.Web.Controllers
             {
                 try
                 {
-                    _context.Update(todoItem);
-                    await _context.SaveChangesAsync();
+                    var todoItemVo = mapper.Map<TodoItemVo>(todoItem);
+                    await provider.Edit(todoItemVo);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TodoItemExists(todoItem.ID))
+                    if (!provider.Exists(todoItem.ID))
                     {
                         return NotFound();
                     }
@@ -123,8 +124,8 @@ namespace Todo.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(_context.Categories, "ID", "Name", todoItem.CategoryID);
-            return View(mapper.Map<TodoItemViewModel>(todoItem));
+            ViewData["CategoryID"] = new SelectList(context.Categories, "ID", "Name", todoItem.CategoryID);
+            return View(todoItem);
         }
 
         // GET: TodoItemDB/Delete/5
@@ -135,9 +136,8 @@ namespace Todo.Web.Controllers
                 return NotFound();
             }
 
-            var todoItem = await _context.TodoItems
-                .Include(t => t.Category)
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var todoItem = await provider.Get((int)id);
+
             if (todoItem == null)
             {
                 return NotFound();
@@ -151,15 +151,8 @@ namespace Todo.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var todoItem = await _context.TodoItems.FindAsync(id);
-            _context.TodoItems.Remove(todoItem);
-            await _context.SaveChangesAsync();
+            await provider.Delete(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool TodoItemExists(int id)
-        {
-            return _context.TodoItems.Any(e => e.ID == id);
         }
     }
 }

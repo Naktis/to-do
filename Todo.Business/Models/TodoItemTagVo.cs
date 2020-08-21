@@ -8,7 +8,7 @@ namespace Todo.Data.Models
     public class TodoItemTagVo
     {
         public int TodoItemID { get; set; }
-        public TodoItemDao TodoItem { get; set; }
+        public TodoItemVo TodoItem { get; set; }
 
         public int TagID { get; set; }
         public TagDao Tag { get; set; }

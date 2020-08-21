@@ -32,7 +32,7 @@ namespace Todo.Data.Models
         public TodoItemStatus Status { get; set; }
 
         public int? CategoryID { get; set; }
-        public CategoryDao Category { get; set; }
+        public CategoryVo Category { get; set; }
 
         public IList<TodoItemTagDao> TodoItemTags { get; set; }
     }
