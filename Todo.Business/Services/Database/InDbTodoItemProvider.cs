@@ -56,5 +56,10 @@ namespace Todo.Business.Services.Database
         {
             return context.TodoItems.Any(e => e.ID == id);
         }
+
+        public IEnumerable<TodoItemVo> GetEnum()
+        {
+            return mapper.Map<IEnumerable<TodoItemVo>>(context.TodoItems);
+        }
     }
 }

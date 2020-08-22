@@ -16,13 +16,13 @@ namespace Todo.Web.Controllers
     {
         private readonly IMapper mapper;
         private readonly IDataProviderAsync<TodoItemVo> provider;
-        private readonly Data.Context.AppContext context;
+        private readonly IDataProviderAsync<CategoryVo> categoryProvider;
 
-        public TodoItemDBController(Data.Context.AppContext context, IMapper mapper, IDataProviderAsync<TodoItemVo> provider)
+        public TodoItemDBController(IMapper mapper, IDataProviderAsync<TodoItemVo> provider, IDataProviderAsync<CategoryVo> categoryProvider)
         {
             this.provider = provider;
             this.mapper = mapper;
-            this.context = context;
+            this.categoryProvider = categoryProvider;
         }
 
 
@@ -53,7 +53,7 @@ namespace Todo.Web.Controllers
         // GET: TodoItemDB/Create
         public IActionResult Create()
         {
-            ViewData["CategoryID"] = new SelectList(context.Categories, "ID", "Name");
+            ViewData["CategoryID"] = new SelectList(categoryProvider.GetEnum(), "ID", "Name");
             return View();
         }
 
@@ -71,7 +71,7 @@ namespace Todo.Web.Controllers
                 await provider.Add(todoItemVo);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(context.Categories, "ID", "Name", todoItem.CategoryID);
+            ViewData["CategoryID"] = new SelectList(categoryProvider.GetEnum(), "ID", "Name", todoItem.CategoryID);
             return View(todoItem);
         }
 
@@ -88,7 +88,7 @@ namespace Todo.Web.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryID"] = new SelectList(context.Categories, "ID", "Name", todoItemVo.CategoryID);
+            ViewData["CategoryID"] = new SelectList(categoryProvider.GetEnum(), "ID", "Name", todoItemVo.CategoryID);
             return View(mapper.Map<TodoItemViewModel>(todoItemVo));
         }
 
@@ -124,7 +124,7 @@ namespace Todo.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryID"] = new SelectList(context.Categories, "ID", "Name", todoItem.CategoryID);
+            ViewData["CategoryID"] = new SelectList(categoryProvider.GetEnum(), "ID", "Name", todoItem.CategoryID);
             return View(todoItem);
         }
 

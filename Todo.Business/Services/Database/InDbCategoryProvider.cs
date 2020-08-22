@@ -53,5 +53,9 @@ namespace Todo.Business.Services
         {
             return context.Categories.Any(e => e.ID == id);
         }
+        public IEnumerable<CategoryVo> GetEnum()
+        {
+            return mapper.Map<IEnumerable<CategoryVo>>(context.Categories);
+        }
     }
 }

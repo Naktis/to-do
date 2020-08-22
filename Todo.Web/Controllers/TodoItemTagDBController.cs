@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Todo.Business.Services;
-using Todo.Data.Context;
 using Todo.Data.Models;
 using Todo.Web.ViewModels;
 
@@ -16,14 +15,16 @@ namespace Todo.Web.Controllers
     public class TodoItemTagDBController : Controller
     {
         private readonly ITodoItemTagProviderAsync provider;
-        private readonly Data.Context.AppContext context;
         private readonly IMapper mapper;
+        private readonly IDataProviderAsync<TagVo> tagProvider;
+        private readonly IDataProviderAsync<TodoItemVo> todoItemProvider;
 
-        public TodoItemTagDBController(Data.Context.AppContext context, IMapper mapper, ITodoItemTagProviderAsync provider)
+        public TodoItemTagDBController(IMapper mapper, ITodoItemTagProviderAsync provider, IDataProviderAsync<TagVo> tagProvider, IDataProviderAsync<TodoItemVo> todoItemProvider)
         {
             this.provider = provider;
             this.mapper = mapper;
-            this.context = context;
+            this.tagProvider = tagProvider;
+            this.todoItemProvider = todoItemProvider;
         }
 
         // GET: TodoItemTagDB
@@ -54,8 +55,8 @@ namespace Todo.Web.Controllers
         // GET: TodoItemTagDB/Create
         public IActionResult Create()
         {
-            ViewData["TagID"] = new SelectList(context.Tags, "ID", "Name");
-            ViewData["TodoItemID"] = new SelectList(context.TodoItems, "ID", "Name");
+            ViewData["TagID"] = new SelectList(tagProvider.GetEnum(), "ID", "Name");
+            ViewData["TodoItemID"] = new SelectList(todoItemProvider.GetEnum(), "ID", "Name");
             return View();
         }
 
@@ -72,8 +73,8 @@ namespace Todo.Web.Controllers
                 await provider.Add(todoItemTagVo);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TagID"] = new SelectList(context.Tags, "ID", "ID", todoItemTag.TagID);
-            ViewData["TodoItemID"] = new SelectList(context.TodoItems, "ID", "Name", todoItemTag.TodoItemID);
+            ViewData["TagID"] = new SelectList(tagProvider.GetEnum(), "ID", "ID", todoItemTag.TagID);
+            ViewData["TodoItemID"] = new SelectList(todoItemProvider.GetEnum(), "ID", "Name", todoItemTag.TodoItemID);
             return View(todoItemTag);
         }
 
@@ -90,8 +91,8 @@ namespace Todo.Web.Controllers
             {
                 return NotFound();
             }
-            ViewData["TodoItemID"] = new SelectList(context.TodoItems, "ID", "Name", todoItemTag.TodoItemID);
-            ViewData["TagID"] = new SelectList(context.Tags, "ID", "Name", todoItemTag.TagID);
+            ViewData["TodoItemID"] = new SelectList(todoItemProvider.GetEnum(), "ID", "Name", todoItemTag.TodoItemID);
+            ViewData["TagID"] = new SelectList(tagProvider.GetEnum(), "ID", "Name", todoItemTag.TagID);
             ViewData["OldTodoItemID"] = todoItemID;
             ViewData["OldTagID"] = tagID;
             return View(mapper.Map<TodoItemTagViewModel>(todoItemTag));
@@ -133,8 +134,8 @@ namespace Todo.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TodoItemID"] = new SelectList(context.TodoItems, "ID", "Name", todoItemTag.TodoItemID);
-            ViewData["TagID"] = new SelectList(context.Tags, "ID", "Name", todoItemTag.TagID);
+            ViewData["TodoItemID"] = new SelectList(todoItemProvider.GetEnum(), "ID", "Name", todoItemTag.TodoItemID);
+            ViewData["TagID"] = new SelectList(tagProvider.GetEnum(), "ID", "Name", todoItemTag.TagID);
             return View(todoItemTag);
         }
 

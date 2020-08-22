@@ -13,5 +13,6 @@ namespace Todo.Business.Services
         Task Edit(TData item);
         Task Delete(int id);
         bool Exists(int id);
+        IEnumerable<TData> GetEnum();
     }
 }
