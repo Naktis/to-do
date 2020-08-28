@@ -1,0 +1,38 @@
+﻿@model Todo.Web.ViewModels.TodoItemTagViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>TodoItemTag</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="oldTodoItemID" value="@ViewBag.OldTodoItemID" />
+            <input type="hidden" name="oldTagID" value="@ViewBag.OldTagID" />
+            <div class="form-group">
+                <label asp-for="TodoItemID" class="control-label"></label>
+                <select asp-for="TodoItemID" class="form-control" asp-items="ViewBag.TodoItemID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagID" class="control-label"></label>
+                <select asp-for="TagID" class="form-control" asp-items="ViewBag.TagID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
