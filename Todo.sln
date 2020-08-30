@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Business", "Todo.Busin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Commons", "Todo.Commons\Todo.Commons.csproj", "{AF0DE76A-76A4-49C2-B97D-6EA7B67E1B30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Api", "Todo.Api\Todo.Api.csproj", "{DCDF7C96-B973-4CEF-9863-2C7FB818191F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Api", "Todo.Api\Todo.Api.csproj", "{DCDF7C96-B973-4CEF-9863-2C7FB818191F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.ApiClient", "Todo.ApiClient\Todo.ApiClient.csproj", "{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{DCDF7C96-B973-4CEF-9863-2C7FB818191F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCDF7C96-B973-4CEF-9863-2C7FB818191F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCDF7C96-B973-4CEF-9863-2C7FB818191F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -44,6 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Todo.ApiClient\Todo.ApiClient.csproj" />
     <ProjectReference Include="..\Todo.Business\Todo.Business.csproj" />
   </ItemGroup>
 
