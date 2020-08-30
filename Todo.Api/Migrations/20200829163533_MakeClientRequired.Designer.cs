@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Todo.Api.Data;
 
 namespace Todo.Api.Migrations
 {
     [DbContext(typeof(TodoApiContext))]
-    partial class TodoApiContextModelSnapshot : ModelSnapshot
+    [Migration("20200829163533_MakeClientRequired")]
+    partial class MakeClientRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
