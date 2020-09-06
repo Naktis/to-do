@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Todo.Business.Services
 {
-    public class InMemoryTodoItemProvider : InMemoryDataProvider<TodoItemVo>
+    public class InMemoryTodoItemService : InMemoryDataService<TodoItemVo>
 {
-    public InMemoryTodoItemProvider() : base()
+    public InMemoryTodoItemService() : base()
     {
         Add(new TodoItemVo() { ID = 0, Name = "Exercise", Description = "Catch a pigeon" });
         Add(new TodoItemVo() { ID = 1, Name = "Make dinner", Description = "Try roasted rocks", Priority = 2 });

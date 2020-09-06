@@ -14,12 +14,12 @@ namespace Todo.Web.Controllers
 {
     public class TodoItemTagDBController : Controller
     {
-        private readonly ITodoItemTagProviderAsync provider;
+        private readonly ITodoItemTagServiceAsync provider;
         private readonly IMapper mapper;
-        private readonly IDataProviderAsync<TagVo> tagProvider;
-        private readonly IDataProviderAsync<TodoItemVo> todoItemProvider;
+        private readonly IDataServiceAsync<TagVo> tagProvider;
+        private readonly IDataServiceAsync<TodoItemVo> todoItemProvider;
 
-        public TodoItemTagDBController(IMapper mapper, ITodoItemTagProviderAsync provider, IDataProviderAsync<TagVo> tagProvider, IDataProviderAsync<TodoItemVo> todoItemProvider)
+        public TodoItemTagDBController(IMapper mapper, ITodoItemTagServiceAsync provider, IDataServiceAsync<TagVo> tagProvider, IDataServiceAsync<TodoItemVo> todoItemProvider)
         {
             this.provider = provider;
             this.mapper = mapper;

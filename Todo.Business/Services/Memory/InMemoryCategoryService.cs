@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Todo.Business.Services
 {
-    public class InMemoryCategoryProvider : InMemoryDataProvider<CategoryVo>
+    public class InMemoryCategoryService : InMemoryDataService<CategoryVo>
     {
-        public InMemoryCategoryProvider() : base()
+        public InMemoryCategoryService() : base()
         {
             Add(new CategoryVo() { Name = "Work" });
             Add(new CategoryVo() { Name = "Personal" });

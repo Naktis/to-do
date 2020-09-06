@@ -8,11 +8,11 @@ using AutoMapper;
 
 namespace Todo.Business.Services
 {
-    public class InDbCategoryProvider : IDataProviderAsync<CategoryVo>
+    public class InDbCategoryService : IDataServiceAsync<CategoryVo>
     {
         private readonly Data.Context.AppContext context;
         private readonly IMapper mapper;
-        public InDbCategoryProvider(Data.Context.AppContext context, IMapper mapper)
+        public InDbCategoryService(Data.Context.AppContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;

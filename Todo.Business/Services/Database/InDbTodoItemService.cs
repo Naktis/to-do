@@ -9,11 +9,11 @@ using AutoMapper;
 
 namespace Todo.Business.Services.Database
 {
-    public class InDbTodoItemProvider : IDataProviderAsync<TodoItemVo>
+    public class InDbTodoItemService : IDataServiceAsync<TodoItemVo>
     {
         private readonly Data.Context.AppContext context;
         private readonly IMapper mapper;
-        public InDbTodoItemProvider(Data.Context.AppContext context, IMapper mapper)
+        public InDbTodoItemService(Data.Context.AppContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;

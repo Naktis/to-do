@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Todo.Business.Services
 {
-    public interface IDataProviderAsync<TData>
+    public interface IDataServiceAsync<TData>
     {
         Task<List<TData>> GetAll();
         Task<TData> Get(int id);

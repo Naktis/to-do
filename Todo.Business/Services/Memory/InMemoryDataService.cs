@@ -6,18 +6,18 @@ using Todo.Data.Models;
 
 namespace Todo.Business.Services
 {
-    public class InMemoryDataProvider<TData> : IDataProvider<TData> where TData : IID
+    public class InMemoryDataService<TData> : IDataService<TData> where TData : IID
     {
         public static int maxID = -1;
 
         private readonly List<TData> data;
 
-        public InMemoryDataProvider(List<TData> newData)
+        public InMemoryDataService(List<TData> newData)
         {
             data = newData;
         }
 
-        public InMemoryDataProvider() : this(new List<TData>()) { }
+        public InMemoryDataService() : this(new List<TData>()) { }
 
         public virtual void Add(TData item)
         {

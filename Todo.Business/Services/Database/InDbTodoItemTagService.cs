@@ -8,11 +8,11 @@ using AutoMapper;
 
 namespace Todo.Business.Services.Database
 {
-    public class InDbTodoItemTagProvider : ITodoItemTagProviderAsync
+    public class InDbTodoItemTagService : ITodoItemTagServiceAsync
     {
         private readonly Data.Context.AppContext context;
         private readonly IMapper mapper;
-        public InDbTodoItemTagProvider(Data.Context.AppContext context, IMapper mapper)
+        public InDbTodoItemTagService(Data.Context.AppContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;

@@ -15,10 +15,10 @@ namespace Todo.Web.Controllers
     public class TodoItemDBController : Controller
     {
         private readonly IMapper mapper;
-        private readonly IDataProviderAsync<TodoItemVo> provider;
-        private readonly IDataProviderAsync<CategoryVo> categoryProvider;
+        private readonly IDataServiceAsync<TodoItemVo> provider;
+        private readonly IDataServiceAsync<CategoryVo> categoryProvider;
 
-        public TodoItemDBController(IMapper mapper, IDataProviderAsync<TodoItemVo> provider, IDataProviderAsync<CategoryVo> categoryProvider)
+        public TodoItemDBController(IMapper mapper, IDataServiceAsync<TodoItemVo> provider, IDataServiceAsync<CategoryVo> categoryProvider)
         {
             this.provider = provider;
             this.mapper = mapper;

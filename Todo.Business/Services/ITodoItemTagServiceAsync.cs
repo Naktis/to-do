@@ -6,7 +6,7 @@ using Todo.Data.Models;
 
 namespace Todo.Business.Services
 {
-    public interface ITodoItemTagProviderAsync
+    public interface ITodoItemTagServiceAsync
     {
         Task<List<TodoItemTagVo>> GetAll();
         Task<TodoItemTagVo> Get(int tagID, int todoItemID);

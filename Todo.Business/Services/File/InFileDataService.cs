@@ -8,11 +8,11 @@ using Todo.Data.Models;
 
 namespace Todo.Business.Services
 {
-    public class InFileDataProvider<TData> : InMemoryDataProvider<TData> where TData : IID
+    public class InFileDataService<TData> : InMemoryDataService<TData> where TData : IID
     {
         private readonly string fileName;
 
-        public InFileDataProvider(string fileName) : base(ReadFile(fileName))
+        public InFileDataService(string fileName) : base(ReadFile(fileName))
         {
             this.fileName = fileName;
         }
