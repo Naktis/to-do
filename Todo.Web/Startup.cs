@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Todo.Data.Context;
 using Todo.Business.Services.Database;
 using AutoMapper;
+using Todo.ApiClient;
 
 namespace Todo
 {
@@ -45,6 +46,7 @@ namespace Todo
             services.AddTransient<IDataProviderAsync<CategoryVo>, InDbCategoryProvider>();
             services.AddTransient<IDataProviderAsync<TagVo>, InDbTagProvider>();
             services.AddTransient<ITodoItemTagProviderAsync, InDbTodoItemTagProvider>();
+            services.AddSingleton(new ClientsClass("https://localhost:44384"));
 
             services.AddDbContext<Data.Context.AppContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("AppContext")));
