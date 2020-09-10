@@ -9,6 +9,8 @@ namespace Todo.Data.Context
 {
     public class AppContext : DbContext
     {
+
+        public AppContext() { }
         public AppContext (DbContextOptions<AppContext> options)
             : base(options)
         {
@@ -29,12 +31,12 @@ namespace Todo.Data.Context
                 .HasForeignKey(ss => ss.TagID);
         }
 
-        public DbSet<CategoryDao> Categories { get; set; }
+        public virtual DbSet<CategoryDao> Categories { get; set; }
 
-        public DbSet<TodoItemDao> TodoItems { get; set; }
+        public virtual DbSet<TodoItemDao> TodoItems { get; set; }
 
-        public DbSet<TagDao> Tags { get; set; }
+        public virtual DbSet<TagDao> Tags { get; set; }
 
-        public DbSet<TodoItemTagDao> TodoItemTag { get; set; }
+        public virtual DbSet<TodoItemTagDao> TodoItemTag { get; set; }
     }
 }

@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Commons", "Todo.Common
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Api", "Todo.Api\Todo.Api.csproj", "{DCDF7C96-B973-4CEF-9863-2C7FB818191F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.ApiClient", "Todo.ApiClient\Todo.ApiClient.csproj", "{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.ApiClient", "Todo.ApiClient\Todo.ApiClient.csproj", "{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9525E562-11ED-45BE-AB09-F97E15EE7A8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Business.Tests", "Todo.Business.Tests\Todo.Business.Tests.csproj", "{251D5760-F1C7-4A25-A7B8-71F0BBFCDD7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +49,16 @@ Global
 		{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{251D5760-F1C7-4A25-A7B8-71F0BBFCDD7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{251D5760-F1C7-4A25-A7B8-71F0BBFCDD7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{251D5760-F1C7-4A25-A7B8-71F0BBFCDD7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{251D5760-F1C7-4A25-A7B8-71F0BBFCDD7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{251D5760-F1C7-4A25-A7B8-71F0BBFCDD7D} = {9525E562-11ED-45BE-AB09-F97E15EE7A8C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {330237D4-3634-48E2-8597-0CBFF1EC35D7}
