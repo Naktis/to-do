@@ -1,6 +1,6 @@
 # To do list
 
-ASP.NET core web application with API, developed during the ASP.NET course, organinzed by Alna Software in 2020.
+ASP.NET core web application with API, developed for the ASP.NET core course, organized by Alna Software in 2020.
 
 
 ## Features
