@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Commons", "Todo.Common
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Api", "Todo.Api\Todo.Api.csproj", "{DCDF7C96-B973-4CEF-9863-2C7FB818191F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.ApiClient", "Todo.ApiClient\Todo.ApiClient.csproj", "{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.ApiClient", "Todo.ApiClient\Todo.ApiClient.csproj", "{8B3D4A81-129E-43F1-95DC-09F4DA5A1EA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
